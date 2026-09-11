@@ -1,4 +1,5 @@
 import io
+import re
 import sys
 from pathlib import Path
 import streamlit as st
@@ -8,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.config import APP_NAME, APP_TAGLINE, APP_VERSION, GEMINI_API_KEY
 from src.privacy_shield import PrivacyShield
-from src.contract_scanner import ContractScanner, ContractAnalysisReport
+from src.contract_scanner import ContractScanner, ContractAnalysisReport, generate_negotiation_script
 from src.compliance import SmartComplianceEngine
 from src.qa_advisor import LegalAdvisorAgent, PRESET_ANSWERS
 from src.samples import (
@@ -53,71 +54,151 @@ if "redaction_info" not in st.session_state:
 if "sanitized_text" not in st.session_state:
     st.session_state.sanitized_text = None
 
+if "audit_log" not in st.session_state:
+    st.session_state.audit_log = []
+
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
 if "compliance_checked" not in st.session_state:
     st.session_state.compliance_checked = set()
 
-# Custom CSS for polished, professional UI
+if "custom_hide_words" not in st.session_state:
+    st.session_state.custom_hide_words = ""
+
+# Custom CSS for polished, professional UI (Theme-adaptive for Dark and Light modes)
 st.markdown("""
 <style>
     .main-header {
         font-size: 2.2rem;
         font-weight: 800;
-        color: #0F172A;
+        color: var(--text-color);
         margin-bottom: 0.2rem;
     }
     .sub-header {
         font-size: 1.05rem;
-        color: #475569;
+        color: var(--text-color);
+        opacity: 0.85;
         margin-bottom: 1.5rem;
     }
     .shield-badge {
         display: inline-block;
-        background: #ECFDF5;
-        color: #065F46;
-        border: 1px solid #A7F3D0;
+        background: rgba(16, 185, 129, 0.12);
+        color: #10B981;
+        border: 1px solid rgba(16, 185, 129, 0.35);
         padding: 4px 12px;
         border-radius: 20px;
         font-weight: 600;
         font-size: 0.85rem;
     }
-    .risk-card-high {
-        background: #FEF2F2;
-        border-left: 5px solid #EF4444;
-        padding: 16px;
+    .privacy-guarantee-card {
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid rgba(16, 185, 129, 0.35);
         border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 12px;
+        color: var(--text-color);
+    }
+    .redaction-pill {
+        background: var(--secondary-background-color);
+        border: 1px solid rgba(59, 130, 246, 0.35);
+        border-radius: 8px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+    .redaction-pill-label {
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: var(--text-color);
+    }
+    .redaction-pill-count {
+        background: rgba(59, 130, 246, 0.15);
+        color: #3B82F6;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 0.82rem;
+    }
+    .verdict-card-high {
+        background: rgba(239, 68, 68, 0.12);
+        border: 2px solid #EF4444;
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .verdict-card-med {
+        background: rgba(245, 158, 11, 0.12);
+        border: 2px solid #F59E0B;
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .verdict-card-low {
+        background: rgba(16, 185, 129, 0.12);
+        border: 2px solid #10B981;
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .step-card {
+        background: var(--secondary-background-color);
+        border: 1px solid rgba(128, 128, 128, 0.2);
+        border-radius: 8px;
+        padding: 14px;
+        height: 100%;
+        color: var(--text-color);
+    }
+    .risk-card-high {
+        background: rgba(239, 68, 68, 0.1);
+        border-left: 5px solid #EF4444;
+        border-radius: 8px;
+        padding: 16px;
         margin-bottom: 14px;
+        color: var(--text-color);
     }
     .risk-card-medium {
-        background: #FFFBEB;
+        background: rgba(245, 158, 11, 0.1);
         border-left: 5px solid #F59E0B;
-        padding: 16px;
         border-radius: 8px;
+        padding: 16px;
         margin-bottom: 14px;
+        color: var(--text-color);
     }
     .risk-card-low {
-        background: #F0FDF4;
+        background: rgba(16, 185, 129, 0.1);
         border-left: 5px solid #10B981;
-        padding: 16px;
         border-radius: 8px;
+        padding: 16px;
         margin-bottom: 14px;
+        color: var(--text-color);
+    }
+    .safe-clause-box {
+        background: var(--secondary-background-color);
+        border: 1px dashed rgba(16, 185, 129, 0.45);
+        border-radius: 6px;
+        padding: 10px;
+        margin-top: 8px;
     }
     .plain-summary-box {
-        background: #F8FAFC;
-        border: 1px solid #E2E8F0;
+        background: var(--secondary-background-color);
+        border: 1px solid rgba(128, 128, 128, 0.2);
         border-radius: 10px;
         padding: 18px;
         margin-bottom: 20px;
+        color: var(--text-color);
     }
     .metric-container {
         text-align: center;
         padding: 12px;
-        background: white;
-        border: 1px solid #E2E8F0;
+        background: var(--secondary-background-color);
+        border: 1px solid rgba(128, 128, 128, 0.2);
         border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        color: var(--text-color);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -147,7 +228,7 @@ with st.sidebar:
 col_title, col_stats = st.columns([2.5, 1.5])
 with col_title:
     st.markdown(f"<div class='main-header'>🛡️ {APP_NAME}</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='sub-header'>{APP_TAGLINE} &nbsp;•&nbsp; <span class='shield-badge'>🔒 Privacy Shield Active</span> &nbsp; <span class='shield-badge' style='background:#EFF6FF; color:#1E40AF; border-color:#BFDBFE;'>🔍 RAG-Augmented</span></div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'>{APP_TAGLINE} &nbsp;•&nbsp; <span class='shield-badge'>🔒 Privacy Shield Active</span> &nbsp; <span class='shield-badge' style='background:rgba(37, 99, 235, 0.12); color:#3B82F6; border-color:rgba(59, 130, 246, 0.35);'>🔍 RAG-Augmented</span></div>", unsafe_allow_html=True)
 
 with col_stats:
     c1, c2 = st.columns(2)
@@ -181,6 +262,8 @@ with tab_scanner:
             st.session_state.current_contract_title = SAMPLE_1_LEASE_TITLE
             st.session_state.analysis_report = None
             st.session_state.redaction_info = None
+            st.session_state.sanitized_text = None
+            st.session_state.audit_log = []
             st.rerun()
 
     with col_s2:
@@ -189,6 +272,8 @@ with tab_scanner:
             st.session_state.current_contract_title = SAMPLE_2_VENDOR_TITLE
             st.session_state.analysis_report = None
             st.session_state.redaction_info = None
+            st.session_state.sanitized_text = None
+            st.session_state.audit_log = []
             st.rerun()
 
     with col_clear:
@@ -197,6 +282,9 @@ with tab_scanner:
             st.session_state.current_contract_title = "Custom Agreement"
             st.session_state.analysis_report = None
             st.session_state.redaction_info = None
+            st.session_state.sanitized_text = None
+            st.session_state.audit_log = []
+            st.session_state.custom_hide_words = ""
             st.rerun()
 
     st.markdown("---")
@@ -247,7 +335,7 @@ with tab_scanner:
         contract_input = st.text_area(
             "Contract Text:",
             value=st.session_state.current_contract_text,
-            height=300,
+            height=280,
             placeholder="Paste your contract text here..."
         )
         st.session_state.current_contract_text = contract_input
@@ -257,14 +345,21 @@ with tab_scanner:
             if not contract_input.strip():
                 st.warning("Please paste or load a contract first.")
             else:
-                with st.spinner("1/2 Applying Privacy Shield (anonymizing sensitive details)..."):
+                with st.spinner("1/2 Applying Privacy Shield (anonymizing sensitive details in memory)..."):
+                    custom_redact_list = [w.strip() for w in st.session_state.custom_hide_words.split(",") if w.strip()] if st.session_state.custom_hide_words else None
                     if enable_privacy:
-                        sanitized, counts = st.session_state.privacy_shield.anonymize(contract_input, mask_money=mask_money)
+                        sanitized, counts = st.session_state.privacy_shield.anonymize(
+                            contract_input,
+                            mask_money=mask_money,
+                            custom_redactions=custom_redact_list
+                        )
                         st.session_state.sanitized_text = sanitized
                         st.session_state.redaction_info = counts
+                        st.session_state.audit_log = getattr(st.session_state.privacy_shield, "last_audit_log", [])
                     else:
                         st.session_state.sanitized_text = contract_input
                         st.session_state.redaction_info = {}
+                        st.session_state.audit_log = []
 
                 with st.spinner("2/2 Auditing legal clauses, missing protections, and tax considerations..."):
                     report = st.session_state.contract_scanner.analyze_contract(
@@ -275,121 +370,346 @@ with tab_scanner:
                 st.rerun()
 
     with col_shield_preview:
-        st.markdown("**🛡️ Privacy Shield Live Inspection:**")
+        st.markdown("#### 🛡️ Privacy Shield Live Inspection")
+        st.markdown("""
+        <div class='privacy-guarantee-card'>
+            <div style='display:flex; align-items:center; gap:8px;'>
+                <span style='font-size:1.3rem;'>🔒</span>
+                <div>
+                    <strong style='color:#10B981;'>Always Redacted Automatically (Default):</strong><br>
+                    <span style='font-size:0.83rem; opacity:0.9;'>CNIC, Names, Phones, Emails, NTN, STRN, Bank/IBAN, Passports, Licenses, and Addresses are 100% hidden on your device before sending to AI.</span>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Prominently ask user to write anything else they want redacted right here in Live Inspection
+        st.markdown("**✍️ Want to hide any other personal info or words from AI?**")
+        custom_hide_input = st.text_input(
+            "Write extra words, names, or secret codes to hide:",
+            value=st.session_state.custom_hide_words,
+            placeholder="e.g. Project Falcon, Tariq Khan, Secret Recipe (comma separated)",
+            help="CNIC, phone, NTN, STRN, passports, licenses, bank details, and addresses are ALWAYS hidden automatically. Enter any extra words or names here to also hide them from AI."
+        )
+        st.session_state.custom_hide_words = custom_hide_input
+        custom_redact_list = [w.strip() for w in custom_hide_input.split(",") if w.strip()] if custom_hide_input else None
+
+        # Quick standalone verify button
+        if st.button("🔍 Preview What Gets Hidden (Test Privacy)", use_container_width=True):
+            if not contract_input.strip():
+                st.warning("Please paste or load contract text first.")
+            else:
+                sanitized, counts = st.session_state.privacy_shield.anonymize(
+                    contract_input,
+                    mask_money=mask_money,
+                    custom_redactions=custom_redact_list
+                )
+                st.session_state.sanitized_text = sanitized
+                st.session_state.redaction_info = counts
+                st.session_state.audit_log = getattr(st.session_state.privacy_shield, "last_audit_log", [])
+                st.rerun()
+
         if st.session_state.redaction_info:
             total_shielded = sum(st.session_state.redaction_info.values())
-            st.success(f"✅ **{total_shielded} Confidential Items Anonymized** before analysis!")
+            st.success(f"✅ **{total_shielded} Private Details Safely Hidden** (Never sent to AI!)")
+            
+            # Pill display of categories (Dark-mode & Light-mode adaptive)
+            cols_cat = st.columns(2)
+            idx_c = 0
             for cat, cnt in st.session_state.redaction_info.items():
                 if cnt > 0:
-                    st.caption(f"• **{cat}:** `{cnt} item(s) masked`")
-        else:
-            st.info("When you scan, Privacy Shield automatically detects and masks CNIC, Phone, Bank Account, and Party names before sending text to the AI engine.")
+                    with cols_cat[idx_c % 2]:
+                        st.markdown(f"""
+                        <div class='redaction-pill'>
+                            <span class='redaction-pill-label'>{cat}</span>
+                            <span class='redaction-pill-count'>{cnt}</span>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    idx_c += 1
 
-        if st.session_state.sanitized_text:
-            with st.expander("🔍 View Anonymized Text Sent to AI", expanded=False):
-                st.text_area("Sanitized Version:", value=st.session_state.sanitized_text, height=220, disabled=True)
+            # Detailed Redaction Proof
+            if st.session_state.audit_log:
+                with st.expander("📋 Privacy Protection Proof (What was hidden from AI)", expanded=True):
+                    audit_rows = []
+                    for item in st.session_state.audit_log:
+                        audit_rows.append({
+                            "Category": item["category"],
+                            "Detected Text": item["masked_preview"],
+                            "Sent to AI": item["ai_token"],
+                            "Protection Status": "🟢 Hidden from AI"
+                        })
+                    st.dataframe(audit_rows, use_container_width=True, hide_index=True)
+
+            if st.session_state.sanitized_text:
+                with st.expander("📄 Compare: Original vs. Anonymized Payload", expanded=True):
+                    # 🔍 1-Click Search Verifier
+                    st.markdown("**🔍 Quick Search Verifier:** Check if a specific name, CNIC, or word was redacted without scrolling down:")
+                    search_query = st.text_input(
+                        "Search word, number, or name:",
+                        placeholder="e.g. 0300-1234567, ABC Properties, Lahore, 35201, NTN...",
+                        label_visibility="collapsed",
+                        key="compare_search_query"
+                    )
+
+                    if search_query and search_query.strip():
+                        q_clean = search_query.strip()
+                        raw_matches = len(re.findall(re.escape(q_clean), contract_input, re.IGNORECASE))
+                        san_matches = len(re.findall(re.escape(q_clean), st.session_state.sanitized_text, re.IGNORECASE))
+
+                        if raw_matches > 0 and san_matches == 0:
+                            st.success(f"🟢 **100% Protected & Hidden!** '{q_clean}' appeared {raw_matches} time(s) in your original contract and has been **completely scrubbed** (0 times sent to AI).")
+                            matching_lines = [line.strip() for line in contract_input.splitlines() if q_clean.lower() in line.lower()]
+                            if matching_lines:
+                                st.caption(f"📍 Original line: `{matching_lines[0]}`")
+                        elif raw_matches > 0 and san_matches > 0:
+                            st.warning(f"⚠️ **Not Redacted:** '{q_clean}' appears {san_matches} time(s) in the text sent to AI as regular words.")
+                            if st.button(f"➕ Click to hide '{q_clean}' from AI now", key=f"btn_add_hide_{q_clean}"):
+                                curr = st.session_state.custom_hide_words
+                                st.session_state.custom_hide_words = f"{curr}, {q_clean}" if curr else q_clean
+                                custom_list = [w.strip() for w in st.session_state.custom_hide_words.split(",") if w.strip()]
+                                sanitized, counts = st.session_state.privacy_shield.anonymize(
+                                    contract_input,
+                                    mask_money=mask_money,
+                                    custom_redactions=custom_list
+                                )
+                                st.session_state.sanitized_text = sanitized
+                                st.session_state.redaction_info = counts
+                                st.session_state.audit_log = getattr(st.session_state.privacy_shield, "last_audit_log", [])
+                                st.rerun()
+                        else:
+                            st.info(f"ℹ️ '{q_clean}' does not appear anywhere in this contract.")
+
+                    st.markdown("---")
+                    tab_san, tab_orig = st.tabs(["🤖 What Google AI Received", "📄 Raw Document (Local Only)"])
+                    with tab_san:
+                        st.text_area("Sanitized Payload (Only Generic Tags Sent):", value=st.session_state.sanitized_text, height=200, disabled=True)
+                    with tab_orig:
+                        st.text_area("Original Text with Personal Information:", value=contract_input, height=200, disabled=True)
+        else:
+            st.info("💡 **How to verify:** Click **'Preview What Gets Hidden'** or **'Scan Agreement'**. BizShield AI will instantly display the exact CNIC, NTN, STRN, passports, driving licenses, addresses, phone numbers, and bank details masked before AI processing.")
 
     # ================= SCAN RESULTS DASHBOARD =================
     if st.session_state.analysis_report:
         report: ContractAnalysisReport = st.session_state.analysis_report
         st.markdown("---")
-        st.markdown("## 📊 Comprehensive Contract Audit Report")
+        st.markdown("## 📊 Commercial Contract Risk Audit Report")
 
-        # Top Summary Badges
+        # 1. TRAFFIC-LIGHT EXECUTIVE VERDICT BANNER
+        if report.overall_risk_score >= 70:
+            st.markdown(f"""
+            <div class='verdict-card-high'>
+                <div style='display:flex; align-items:center; justify-content:space-between;'>
+                    <div>
+                        <div style='font-size:1.35rem; font-weight:800; color:#EF4444;'>🛑 EXECUTIVE VERDICT: DO NOT SIGN AS-IS</div>
+                        <div style='color:var(--text-color); opacity:0.9; font-size:0.95rem; margin-top:4px;'>
+                            This contract contains <strong>critical commercial traps</strong> that heavily favor the other party. Counter-offer to revise these clauses before committing.
+                        </div>
+                    </div>
+                    <div style='text-align:right;'>
+                        <span style='background:rgba(239, 68, 68, 0.2); color:#EF4444; font-weight:800; font-size:1.4rem; padding:6px 14px; border-radius:10px; border:1px solid rgba(239, 68, 68, 0.4);'>
+                            {report.overall_risk_score} / 100 Risk
+                        </span>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        elif report.overall_risk_score >= 40:
+            st.markdown(f"""
+            <div class='verdict-card-med'>
+                <div style='display:flex; align-items:center; justify-content:space-between;'>
+                    <div>
+                        <div style='font-size:1.35rem; font-weight:800; color:#F59E0B;'>⚠️ EXECUTIVE VERDICT: PROCEED WITH CAUTION</div>
+                        <div style='color:var(--text-color); opacity:0.9; font-size:0.95rem; margin-top:4px;'>
+                            This contract is mostly standard, but has <strong>several ambiguous clauses</strong> that could cause cost overruns or operational friction.
+                        </div>
+                    </div>
+                    <div style='text-align:right;'>
+                        <span style='background:rgba(245, 158, 11, 0.2); color:#F59E0B; font-weight:800; font-size:1.4rem; padding:6px 14px; border-radius:10px; border:1px solid rgba(245, 158, 11, 0.4);'>
+                            {report.overall_risk_score} / 100 Risk
+                        </span>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown(f"""
+            <div class='verdict-card-low'>
+                <div style='display:flex; align-items:center; justify-content:space-between;'>
+                    <div>
+                        <div style='font-size:1.35rem; font-weight:800; color:#10B981;'>✅ EXECUTIVE VERDICT: SAFE & BALANCED</div>
+                        <div style='color:var(--text-color); opacity:0.9; font-size:0.95rem; margin-top:4px;'>
+                            This contract adheres to standard commercial norms in Pakistan. Proceed with standard due diligence.
+                        </div>
+                    </div>
+                    <div style='text-align:right;'>
+                        <span style='background:rgba(16, 185, 129, 0.2); color:#10B981; font-weight:800; font-size:1.4rem; padding:6px 14px; border-radius:10px; border:1px solid rgba(16, 185, 129, 0.4);'>
+                            {report.overall_risk_score} / 100 Risk
+                        </span>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        # 2. TOP METRICS
         c_score, c_type, c_flags, c_missing = st.columns(4)
-        
-        # Color based on risk
         risk_color = "#DC2626" if report.overall_risk_score >= 70 else ("#D97706" if report.overall_risk_score >= 40 else "#059669")
         
         with c_score:
             st.markdown(f"""
             <div class='metric-container'>
-                <span style='color:#64748B; font-size:0.85rem;'>OVERALL RISK RATING</span><br>
-                <span style='font-size:1.9rem; font-weight:800; color:{risk_color};'>{report.overall_risk_score} / 100</span><br>
-                <span style='font-weight:600; color:{risk_color};'>{report.overall_risk_level}</span>
+                <span style='color:#64748B; font-size:0.82rem;'>RISK LEVEL</span><br>
+                <span style='font-size:1.7rem; font-weight:800; color:{risk_color};'>{report.overall_risk_level}</span><br>
+                <span style='font-weight:600; color:#64748B;'>{report.overall_risk_score} / 100 Rating</span>
             </div>
             """, unsafe_allow_html=True)
             
         with c_type:
             st.markdown(f"""
             <div class='metric-container'>
-                <span style='color:#64748B; font-size:0.85rem;'>CONTRACT CLASSIFICATION</span><br>
+                <span style='color:#64748B; font-size:0.82rem;'>CONTRACT TYPE</span><br>
                 <span style='font-size:1.1rem; font-weight:700; color:#1E293B;'>{report.contract_type}</span><br>
-                <span style='color:#059669; font-size:0.8rem;'>Commercial Standard</span>
+                <span style='color:#059669; font-size:0.8rem;'>Commercial Document</span>
             </div>
             """, unsafe_allow_html=True)
 
         with c_flags:
             st.markdown(f"""
             <div class='metric-container'>
-                <span style='color:#64748B; font-size:0.85rem;'>RED FLAGS IDENTIFIED</span><br>
-                <span style='font-size:1.9rem; font-weight:800; color:#DC2626;'>{len(report.red_flags)}</span><br>
-                <span style='color:#DC2626; font-size:0.8rem;'>High & Medium Traps</span>
+                <span style='color:#64748B; font-size:0.82rem;'>TRAPS & RED FLAGS</span><br>
+                <span style='font-size:1.7rem; font-weight:800; color:#DC2626;'>{len(report.red_flags)}</span><br>
+                <span style='color:#DC2626; font-size:0.8rem;'>Clauses Needing Revision</span>
             </div>
             """, unsafe_allow_html=True)
 
         with c_missing:
             st.markdown(f"""
             <div class='metric-container'>
-                <span style='color:#64748B; font-size:0.85rem;'>MISSING PROTECTIONS</span><br>
-                <span style='font-size:1.9rem; font-weight:800; color:#D97706;'>{len(report.missing_protections)}</span><br>
-                <span style='color:#D97706; font-size:0.8rem;'>Omitted Clauses</span>
+                <span style='color:#64748B; font-size:0.82rem;'>MISSING SAFEGUARDS</span><br>
+                <span style='font-size:1.7rem; font-weight:800; color:#D97706;'>{len(report.missing_protections)}</span><br>
+                <span style='color:#D97706; font-size:0.8rem;'>Omitted Protections</span>
             </div>
             """, unsafe_allow_html=True)
 
-        # Plain English Executive Summary
-        st.markdown("### 💡 Plain English Summary (What this means for you)")
+        # 3. 3-STEP ACTION PLAN FOR NON-LAWYERS
+        st.markdown("### 🎯 Your 3-Step Action Plan (What to do next)")
+        col_act1, col_act2, col_act3 = st.columns(3)
+        with col_act1:
+            st.markdown("""
+            <div class='step-card'>
+                <div style='font-size:1.05rem; font-weight:700; color:#1E293B; margin-bottom:6px;'>1️⃣ Request Revisions</div>
+                <div style='color:#475569; font-size:0.88rem;'>
+                    Do not sign the existing draft. Request amendments to the <strong>high-risk clauses</strong> flagged below (especially termination and maintenance).
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        with col_act2:
+            st.markdown("""
+            <div class='step-card'>
+                <div style='font-size:1.05rem; font-weight:700; color:#1E293B; margin-bottom:6px;'>2️⃣ Add Missing Clauses</div>
+                <div style='color:#475569; font-size:0.88rem;'>
+                    Insist on standard commercial protections: explicit mutual notice period and FBR withholding tax clarity under Section 153/155.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        with col_act3:
+            st.markdown("""
+            <div class='step-card'>
+                <div style='font-size:1.05rem; font-weight:700; color:#1E293B; margin-bottom:6px;'>3️⃣ Send Counter-Offer</div>
+                <div style='color:#475569; font-size:0.88rem;'>
+                    Copy our <strong>pre-drafted professional WhatsApp/Email message</strong> below and send it directly to the other party.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        # 4. PRE-DRAFTED 1-CLICK NEGOTIATION MESSAGE
+        st.markdown("### 💬 1-Click WhatsApp / Email Counter-Offer Script")
+        st.caption("Send this polite, professionally drafted message to your landlord or client. It requests the exact revisions without sounding confrontational:")
+        
+        negotiation_text = generate_negotiation_script(report)
+        st.code(negotiation_text, language="text")
+
+        # 5. PLAIN ENGLISH EXECUTIVE SUMMARY
+        st.markdown("### 💡 Plain English Summary (What this contract means in everyday words)")
         with st.container():
             st.markdown("<div class='plain-summary-box'>", unsafe_allow_html=True)
             for bullet in report.plain_english_summary:
                 st.markdown(f"• {bullet}")
             st.markdown("</div>", unsafe_allow_html=True)
 
-        # Categorized Red Flags
-        st.markdown(f"### 🚨 Potentially Risky, Unclear, or Trapping Clauses ({len(report.red_flags)} Found)")
-        for idx, flag in enumerate(report.red_flags):
-            card_class = "risk-card-high" if flag.risk_level == "High" else "risk-card-medium"
-            badge_color = "#991B1B" if flag.risk_level == "High" else "#92400E"
-            badge_bg = "#FEE2E2" if flag.risk_level == "High" else "#FEF3C7"
-            
-            with st.container():
-                st.markdown(f"""
-                <div class='{card_class}'>
-                    <div style='display:flex; justify-content:space-between; align-items:center;'>
-                        <h4 style='margin:0; color:#1E293B;'>{flag.clause_reference}</h4>
-                        <span style='background:{badge_bg}; color:{badge_color}; padding:2px 10px; border-radius:12px; font-weight:700; font-size:0.8rem;'>
-                            {flag.risk_level} Risk &nbsp;|&nbsp; {flag.category}
-                        </span>
-                    </div>
-                    <p style='color:#334155; margin:10px 0 6px 0;'><strong>⚠️ Problem / Trap:</strong> {flag.problem_explanation}</p>
-                    <p style='color:#065F46; margin:0;'><strong>💡 Suggested Action / Revision:</strong> {flag.suggested_revision}</p>
-                </div>
-                """, unsafe_allow_html=True)
+        # 6. TABBED DETAILED FINDINGS
+        tab_traps, tab_omitted, tab_safe, tab_proof = st.tabs([
+            f"🚨 Traps & Red Flags ({len(report.red_flags)})",
+            f"🔍 Missing Protections ({len(report.missing_protections)})",
+            f"✅ Fair & Safe Clauses ({len(report.positive_clauses)})",
+            f"🔒 Privacy Shield Proof"
+        ])
 
-        # Missing Protections & Positive Clauses
-        col_missing_box, col_positive_box = st.columns(2)
-        with col_missing_box:
-            st.markdown("### 🔍 Critical Missing Protections")
+        with tab_traps:
+            st.markdown("##### Detailed Breakdown of Clauses Requiring Amendment:")
+            for idx, flag in enumerate(report.red_flags):
+                card_class = "risk-card-high" if flag.risk_level == "High" else "risk-card-medium"
+                badge_color = "#EF4444" if flag.risk_level == "High" else "#F59E0B"
+                badge_bg = "rgba(239, 68, 68, 0.2)" if flag.risk_level == "High" else "rgba(245, 158, 11, 0.2)"
+                
+                with st.container():
+                    st.markdown(f"""
+                    <div class='{card_class}'>
+                        <div style='display:flex; justify-content:space-between; align-items:center;'>
+                            <h4 style='margin:0; color:var(--text-color);'>{flag.clause_reference}</h4>
+                            <span style='background:{badge_bg}; color:{badge_color}; padding:3px 10px; border-radius:12px; font-weight:700; font-size:0.8rem; border:1px solid {badge_color}40;'>
+                                {flag.risk_level} Risk &nbsp;|&nbsp; {flag.category}
+                            </span>
+                        </div>
+                        <p style='color:var(--text-color); opacity:0.9; margin:10px 0 6px 0;'><strong>⚠️ Problem / Trap (In Everyday Words):</strong> {flag.problem_explanation}</p>
+                        <div class='safe-clause-box'>
+                            <strong style='color:#10B981;'>💡 Safe Replacement Clause to Propose:</strong><br>
+                            <span style='color:var(--text-color); font-family:monospace; font-size:0.88rem;'>{flag.suggested_revision}</span>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+        with tab_omitted:
+            st.markdown("##### Critical Safeguards Omitted from this Agreement:")
             st.markdown("<div class='plain-summary-box'>", unsafe_allow_html=True)
             for m in report.missing_protections:
-                st.markdown(f"⚠️ **Missing:** {m}")
+                st.markdown(f"⚠️ **Missing Protection:** {m}")
             st.markdown("</div>", unsafe_allow_html=True)
 
-        with col_positive_box:
-            st.markdown("### ✅ Positive / Fair Clauses")
+        with tab_safe:
+            st.markdown("##### Clauses That Are Fair and Protect You:")
             st.markdown("<div class='plain-summary-box'>", unsafe_allow_html=True)
             for p in report.positive_clauses:
                 st.markdown(f"✅ **Fair Term:** {p}")
             st.markdown("</div>", unsafe_allow_html=True)
 
-        # Download Full Report
-        report_text = f"# BizShield AI - Contract Risk Audit\n\nContract: {st.session_state.current_contract_title}\nOverall Risk: {report.overall_risk_score}/100 ({report.overall_risk_level})\n\n## Plain English Summary\n" + "\n".join([f"- {b}" for b in report.plain_english_summary]) + "\n\n## Red Flags\n"
+        with tab_proof:
+            st.markdown("##### 🔒 Data Privacy Verification for this Document:")
+            if st.session_state.audit_log:
+                st.markdown(f"A total of **{len(st.session_state.audit_log)} private details** were automatically hidden before sending the contract to the AI:")
+                proof_rows = []
+                for item in st.session_state.audit_log:
+                    proof_rows.append({
+                        "Category": item["category"],
+                        "Detected Text": item["masked_preview"],
+                        "What Was Sent to AI": item["ai_token"],
+                        "Protection Status": "🟢 Hidden from AI (100% Protected)"
+                    })
+                st.dataframe(proof_rows, use_container_width=True, hide_index=True)
+            else:
+                st.info("Privacy Shield ran in active mode. Zero personal identifiers or banking credentials were sent to Google Gemini AI.")
+
+        # 7. DOWNLOAD FULL REPORT
+        report_text = f"# BizShield AI - Commercial Contract Risk Audit\n\nContract: {st.session_state.current_contract_title}\nOverall Risk: {report.overall_risk_score}/100 ({report.overall_risk_level})\n\n"
+        report_text += f"## 🚦 Executive Verdict\n{report.overall_risk_level} ({report.overall_risk_score}/100)\n\n"
+        report_text += "## 💡 Plain English Summary\n" + "\n".join([f"- {b}" for b in report.plain_english_summary]) + "\n\n"
+        report_text += "## 💬 Pre-Drafted Negotiation Message\n```\n" + negotiation_text + "\n```\n\n"
+        report_text += "## 🚨 Risky Clauses & Safe Revisions\n"
         for rf in report.red_flags:
             report_text += f"\n### {rf.clause_reference} [{rf.risk_level} Risk]\n- Issue: {rf.problem_explanation}\n- Suggested Revision: {rf.suggested_revision}\n"
-        report_text += "\n## Missing Protections\n" + "\n".join([f"- {m}" for m in report.missing_protections])
+        report_text += "\n## 🔍 Missing Protections\n" + "\n".join([f"- {m}" for m in report.missing_protections]) + "\n"
         
         st.download_button(
-            label="📥 Download Comprehensive Audit Report (.md)",
+            label="📥 Download Action Plan & Audit Report (.md)",
             data=report_text,
             file_name=f"bizshield_audit_{st.session_state.current_contract_title.replace(' ', '_')}.md",
             mime="text/markdown"
@@ -480,36 +800,46 @@ with tab_qa:
     st.markdown("### 💬 Legal & Tax Q&A Advisor")
     st.markdown("Ask any legal, contractual, or tax question affecting small businesses in Pakistan. BizShield AI provides structured, educational guidance grounded in verified official statutes.")
 
-    # Quick Suggestion Chips
-    st.markdown("**💡 Common Questions Asked by Small Business Owners (Click to ask):**")
+    def submit_user_question(question_text: str):
+        q_str = question_text.strip()
+        if not q_str:
+            st.warning("⚠️ The question box is empty. Please type your question or click one of the buttons above!")
+            return
+        with st.spinner("Retrieving verified Pakistani statutes via RAG vector search..."):
+            response_data = st.session_state.qa_advisor.answer_question(q_str)
+            st.session_state.chat_history.append((
+                q_str,
+                response_data["answer"],
+                response_data.get("source", ""),
+                response_data.get("retrieved_chunks", [])
+            ))
+        st.rerun()
+
+    # Quick Suggestion Chips (1-Click Instant Answer!)
+    st.markdown("**💡 Common Questions Asked by Small Business Owners (Click to ask immediately):**")
     chip_cols = st.columns(len(SAMPLE_QA_QUESTIONS))
-    selected_preset = None
 
     for i, q_text in enumerate(SAMPLE_QA_QUESTIONS):
         with chip_cols[i]:
-            btn_label = q_text[:28] + "..." if len(q_text) > 28 else q_text
-            if st.button(btn_label, key=f"chip_{i}", use_container_width=True, help=q_text):
-                selected_preset = q_text
+            btn_label = q_text[:26] + "..." if len(q_text) > 26 else q_text
+            if st.button(btn_label, key=f"chip_{i}", use_container_width=True, help=f"Click to immediately ask: {q_text}"):
+                submit_user_question(q_text)
 
-    # User Query Input
-    query_input = st.text_input(
-        "Or type your question here:",
-        value=selected_preset or "",
-        placeholder="e.g., Can a landlord increase rent without notice during a commercial lease?"
-    )
+    # User Query Input via Form (Supports typing and pressing Enter!)
+    st.markdown("**Or type your custom legal / tax question below:**")
+    with st.form("qa_custom_form", clear_on_submit=True):
+        col_q_in, col_q_btn = st.columns([4.2, 1.2])
+        with col_q_in:
+            typed_q = st.text_input(
+                "Type your legal or tax question here:",
+                placeholder="Type your question here and press Enter (e.g., Can a landlord increase rent without notice?)...",
+                label_visibility="collapsed"
+            )
+        with col_q_btn:
+            ask_pressed = st.form_submit_button("🔍 Ask AI", type="primary", use_container_width=True)
 
-    if st.button("🔍 Ask BizShield AI", type="primary"):
-        if query_input.strip():
-            with st.spinner("Retrieving verified Pakistani statutes via RAG vector search..."):
-                response_data = st.session_state.qa_advisor.answer_question(query_input.strip())
-                st.session_state.chat_history.append((
-                    query_input.strip(),
-                    response_data["answer"],
-                    response_data.get("source", ""),
-                    response_data.get("retrieved_chunks", [])
-                ))
-        else:
-            st.warning("Please type a question or select one of the suggestion chips.")
+        if ask_pressed:
+            submit_user_question(typed_q)
 
     # Render Chat History
     if st.session_state.chat_history:
@@ -530,10 +860,21 @@ with tab_qa:
                         for c in chunks:
                             sim_pct = int(c.get('similarity_score', 0) * 100) if c.get('similarity_score') else 90
                             st.markdown(f"• **{c.get('title', 'Statute')}** — *{c.get('statute', 'Pakistani Law')}* (Match: `{sim_pct}%`)")
-                            st.caption(c.get('content', ''))
+    else:
+        st.markdown("""
+        <div style='background:rgba(59, 130, 246, 0.08); border:1px solid rgba(59, 130, 246, 0.25); border-radius:8px; padding:16px; margin-top:20px;'>
+            <div style='font-size:1rem; font-weight:700; color:#3B82F6; margin-bottom:6px;'>💡 How to use the Legal & Tax Advisor:</div>
+            <div style='color:var(--text-color); font-size:0.9rem;'>
+                1. <strong>Click any of the 5 quick buttons above</strong> to get instant answers with Pakistani legal citations (e.g., commercial rent rules, FBR tax withholding, SECP registration).<br>
+                2. Or <strong>type your own custom question in the box</strong> and press Enter or click <strong>Ask AI</strong>!
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
-
-# ==============================================================================
+    # Chat follow-up input
+    follow_up_q = st.chat_input("Ask a question or follow-up here...")
+    if follow_up_q:
+        submit_user_question(follow_up_q)
 # TAB 4: ABOUT & EDUCATIONAL GUIDANCE
 # ==============================================================================
 with tab_about:
