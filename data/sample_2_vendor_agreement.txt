@@ -1,0 +1,72 @@
+SAMPLE SERVICE & VENDOR AGREEMENT
+This Agreement is made between:
+Client: ABC Retail Solutions
+Vendor: DigitalPro Services
+Service: Website Development and Digital Support
+Effective Date: 1 October 2026
+
+1. Scope of Services
+The Vendor will provide website development, basic maintenance, and digital support services to the Client.
+The exact features and services will be discussed between the parties and may be adjusted according to the Client's business needs.
+
+2. Contract Term
+This Agreement will remain effective for one year from the Effective Date.
+The Agreement may continue after the initial term if both parties agree.
+
+3. Fees and Payment
+The Client will pay the Vendor PKR 120,000 for the services.
+Payment will be made in installments as mutually agreed by the parties.
+The Vendor may revise its charges if additional work or circumstances require it.
+
+4. Delivery Timeline
+The Vendor will make reasonable efforts to complete the website within an appropriate timeframe.
+Any delay caused by changes requested by the Client may result in an adjustment to the delivery schedule.
+
+5. Termination
+Either party may terminate this Agreement by providing reasonable notice to the other party.
+The Vendor may also terminate the Agreement if the Client fails to cooperate or provide required information.
+
+6. Intellectual Property
+Materials created specifically for the Client may be used by the Client for its business purposes.
+The Vendor may retain ownership of its pre-existing materials, tools, templates, and other resources used during the project.
+
+7. Confidentiality
+Both parties agree to keep confidential information private and not disclose it to third parties unless reasonably necessary for providing the services.
+
+8. Liability
+The Vendor will not be responsible for losses arising from circumstances beyond its reasonable control.
+The Vendor's responsibility for any other loss will be limited to an amount considered reasonable in the circumstances.
+
+9. Data and Information
+The Client may provide business information, customer information, login details, and other materials required for the services.
+The Vendor will take reasonable steps to protect such information.
+
+10. Subcontracting
+The Vendor may involve employees, contractors, or third-party service providers where necessary to complete the services.
+
+11. Dispute Resolution
+The parties will first attempt to resolve any dispute through mutual discussion.
+If the dispute cannot be resolved, either party may pursue remedies available under the applicable laws.
+
+12. Taxes
+Each party will be responsible for its own applicable taxes and obligations arising from this Agreement, subject to any applicable withholding or tax requirements.
+
+13. Changes to Agreement
+Any significant changes to the services, fees, or other terms may be agreed between the parties through written or electronic communication.
+
+14. Governing Law
+This Agreement will be governed by the applicable laws of Pakistan.
+
+15. Entire Agreement
+This Agreement represents the understanding between the parties regarding the services described above.
+________________________________________
+SIGNATURES
+For ABC Retail Solutions
+Name: ABC Retail Solutions
+Signature: ________________
+Date: 1 October 2026
+
+For DigitalPro Services
+Name: DigitalPro Services
+Signature: ________________
+Date: 1 October 2026

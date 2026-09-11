@@ -1,0 +1,61 @@
+{
+  "authorities": [
+    {
+      "code": "SECP",
+      "name": "Securities and Exchange Commission of Pakistan",
+      "primary_statute": "Companies Act 2017",
+      "portal": "eServices (eservices.secp.gov.pk)",
+      "mandate": "Corporate incorporation, corporate filings, single member company regulation, and director accountability."
+    },
+    {
+      "code": "FBR",
+      "name": "Federal Board of Revenue",
+      "primary_statute": "Income Tax Ordinance 2001",
+      "portal": "Iris (iris.fbr.gov.pk)",
+      "mandate": "National Tax Number (NTN) registration, Active Taxpayer List (ATL), federal sales tax on goods, and withholding tax management."
+    },
+    {
+      "code": "PSEB",
+      "name": "Pakistan Software Export Board",
+      "primary_statute": "Income Tax Ordinance 2001 (Section 154A) & PSEB Policy Guidelines",
+      "portal": "pseb.org.pk",
+      "mandate": "Facilitation of IT & ITeS exporters, IT freelancer registration, and certification for 0.25% concessionary export tax credit."
+    },
+    {
+      "code": "PRA",
+      "name": "Punjab Revenue Authority",
+      "primary_statute": "Punjab Sales Tax on Services Act 2012",
+      "portal": "pra.punjab.gov.pk",
+      "mandate": "Levy and collection of provincial sales tax on services (16% standard, reduced rates on IT) rendered in Punjab."
+    },
+    {
+      "code": "SRB",
+      "name": "Sindh Revenue Board",
+      "primary_statute": "Sindh Sales Tax on Services Act 2011",
+      "portal": "srb.gos.pk",
+      "mandate": "Levy and collection of provincial sales tax on services (13% standard, 3% on IT) rendered in Sindh."
+    }
+  ],
+  "key_compliance_deadlines": [
+    {
+      "event": "Annual Income Tax Return (Individuals & AOPs)",
+      "statutory_deadline": "September 30 each year",
+      "consequence_of_delay": "Removal from Active Taxpayer List (ATL), leading to 100% higher withholding tax deductions on banking and business transactions."
+    },
+    {
+      "event": "Annual Income Tax Return (Companies / Pvt Ltd)",
+      "statutory_deadline": "December 31 each year (for tax year ending June 30)",
+      "consequence_of_delay": "Financial penalties under Section 182 and suspension of tax certificates."
+    },
+    {
+      "event": "Monthly Withholding Tax Statement",
+      "statutory_deadline": "15th of every succeeding month",
+      "consequence_of_delay": "Penalties for non-filing of withholding tax statements under Section 165."
+    },
+    {
+      "event": "Mandatory Record Retention",
+      "statutory_deadline": "Minimum 6 years from end of tax year",
+      "consequence_of_delay": "Disallowance of business expense deductions under audit (Section 174)."
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "sample_1_commercial_lease": [
+    {
+      "finding_number": 1,
+      "clause": "Clause 5: Termination",
+      "expected_issue": "Termination clause — 'reasonable notice' clearly define nahi hai.",
+      "risk_level": "High",
+      "suggested_action": "Define exact written notice period (e.g. 60 or 90 days) and specify conditions under which landlord can terminate."
+    },
+    {
+      "finding_number": 2,
+      "clause": "Clause 6: Maintenance",
+      "expected_issue": "Maintenance clause — responsibility broad/vague hai; specific duties clear nahi.",
+      "risk_level": "Medium",
+      "suggested_action": "Explicitly state landlord is responsible for structural repairs (roof, exterior, main plumbing) while tenant handles internal minor operational upkeep."
+    },
+    {
+      "finding_number": 3,
+      "clause": "Clause 12: Late Payment",
+      "expected_issue": "Late payment — late fee/penalty ya exact consequences specified nahi.",
+      "risk_level": "Medium",
+      "suggested_action": "Define a 7-10 day grace period followed by a specific reasonable late fee, preventing arbitrary eviction or undefined penalties."
+    },
+    {
+      "finding_number": 4,
+      "clause": "Clause 14: Renewal",
+      "expected_issue": "Renewal — renewal terms, notice period aur revised rent ka mechanism missing hai.",
+      "risk_level": "High",
+      "suggested_action": "Add clause allowing tenant option to renew with 60 days notice prior to expiry, with rent increase capped at 8-10%."
+    },
+    {
+      "finding_number": 5,
+      "clause": "Clause 17: Notices",
+      "expected_issue": "Notices — exact notice method/address/timeframe clearly specified nahi.",
+      "risk_level": "Low",
+      "suggested_action": "State that notices must be served via registered courier or official designated business email addresses."
+    },
+    {
+      "finding_number": 6,
+      "clause": "Clause 11: Insurance",
+      "expected_issue": "Insurance — required insurance coverage/type/party responsibility clearly defined nahi.",
+      "risk_level": "Low",
+      "suggested_action": "Clarify that building fire/structure insurance rests with landlord; internal business contents rest with tenant."
+    },
+    {
+      "finding_number": 7,
+      "clause": "Tax Considerations (Missing Clause)",
+      "expected_issue": "Tax considerations — agreement mein applicable tax/withholding treatment ka specific handling mention nahi.",
+      "risk_level": "High",
+      "suggested_action": "Add explicit clause clarifying whether PKR 150,000 rent is gross or net of Section 155 Income Tax Ordinance withholding deductible by corporate tenants."
+    }
+  ],
+  "sample_2_vendor_agreement": [
+    {
+      "finding_number": 1,
+      "clause": "Clause 1: Scope of Services",
+      "expected_issue": "Missing concrete deliverables, milestones, and acceptance criteria.",
+      "risk_level": "High",
+      "suggested_action": "Attach a detailed Statement of Work (SOW) defining milestones and sign-off criteria."
+    },
+    {
+      "finding_number": 2,
+      "clause": "Clause 3: Fees and Payment",
+      "expected_issue": "Vendor has unilateral right to revise charges whenever additional work or circumstances require it.",
+      "risk_level": "High",
+      "suggested_action": "Require a formal written change-order signed by both parties before any additional fee can be charged."
+    },
+    {
+      "finding_number": 3,
+      "clause": "Clause 4: Delivery Timeline",
+      "expected_issue": "Vague delivery timeline ('reasonable efforts within an appropriate timeframe').",
+      "risk_level": "High",
+      "suggested_action": "Specify concrete milestone dates and define what constitutes an excusable vs unexcusable delay."
+    },
+    {
+      "finding_number": 4,
+      "clause": "Clause 6: Intellectual Property",
+      "expected_issue": "Client only receives right to use materials; vendor retains underlying ownership of custom deliverables.",
+      "risk_level": "High",
+      "suggested_action": "State clearly: Upon full payment, all bespoke source code, designs, and content are assigned 100% to Client."
+    },
+    {
+      "finding_number": 5,
+      "clause": "Clause 8: Liability",
+      "expected_issue": "Liability capped at an ambiguous 'amount considered reasonable in the circumstances'.",
+      "risk_level": "Medium",
+      "suggested_action": "Standardize liability cap to total fees paid under this Agreement in preceding 6-12 months."
+    },
+    {
+      "finding_number": 6,
+      "clause": "Clause 10: Subcontracting",
+      "expected_issue": "Vendor can subcontract work to third parties without client prior notice or consent.",
+      "risk_level": "Medium",
+      "suggested_action": "Require prior written consent from Client before subcontracting core services."
+    }
+  ]
+}

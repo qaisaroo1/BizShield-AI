@@ -1,0 +1,29 @@
+{
+  "faq": [
+    {
+      "question": "What should I check before signing a commercial lease?",
+      "summary": "Verify 6 critical points: exact written termination notice (60-90 days), clear maintenance separation (structural vs operational), renewal rent increase cap (8-10%), security deposit refund terms, municipal commercial zoning, and Section 155 tax withholding allocation.",
+      "legal_basis": "Punjab Rented Premises Act 2009 / Islamabad Rent Restriction Ordinance / Income Tax Ordinance 2001 (Section 155)"
+    },
+    {
+      "question": "Can I terminate this contract early, and what notice is required?",
+      "summary": "Early termination depends on your contract clause. Avoid 'reasonable notice' and specify exact days. For breach of contract, a 14-30 day formal Notice to Cure is legally required before termination.",
+      "legal_basis": "Contract Act 1872 (Sections 39, 73, 75) & Specific Relief Act 1877"
+    },
+    {
+      "question": "Who is responsible for taxes or withholding on this payment?",
+      "summary": "Every business is responsible for its own income tax. However, corporate payers are legally mandated by FBR to withhold tax at source (e.g. 8-11% on services, scaled rates on rent). Contracts should state whether amounts are inclusive or exclusive of taxes.",
+      "legal_basis": "Income Tax Ordinance 2001 (Sections 152, 153, 155) & Provincial Sales Tax on Services Acts"
+    },
+    {
+      "question": "What records should my business maintain for tax purposes?",
+      "summary": "Under Section 174, maintain serially numbered sales invoices, vendor receipts, utility bills, business bank account statements, and salary payment CPRs for a minimum of 6 years.",
+      "legal_basis": "Income Tax Ordinance 2001, Section 174 & Income Tax Rules 2002 (Rule 29)"
+    },
+    {
+      "question": "What registrations or compliance steps apply to my business?",
+      "summary": "A 4-tier structure: (1) FBR Iris NTN, (2) Entity registration (SECP or Registrar of Firms), (3) Provincial Sales Tax on Services (PRA/SRB), and (4) Sectoral licensing (PSEB for IT exporters to claim 0.25% tax rate).",
+      "legal_basis": "FBR Iris Guidelines / SECP Companies Act 2017 / PSEB Policy Guidelines"
+    }
+  ]
+}

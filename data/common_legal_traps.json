@@ -1,0 +1,62 @@
+[
+  {
+    "id": "trap_01",
+    "name": "Vague termination rights or notice periods",
+    "risk_level": "High",
+    "description": "Contracts using phrases like 'reasonable notice' without defining exact calendar days (e.g. 30, 60, or 90 days), allowing arbitrary eviction or abrupt cancellation."
+  },
+  {
+    "id": "trap_02",
+    "name": "Unclear payment terms or late-payment consequences",
+    "risk_level": "High",
+    "description": "Agreements lacking defined payment milestones, bank details, grace periods, or containing vague penalty threats like 'landlord/client may take appropriate action'."
+  },
+  {
+    "id": "trap_03",
+    "name": "Unilateral price/fee changes",
+    "risk_level": "High",
+    "description": "Clauses permitting one party to increase prices, fees, or rent without requiring mutual written consent or signed change-orders."
+  },
+  {
+    "id": "trap_04",
+    "name": "Auto-renewal without clear notice requirements",
+    "risk_level": "Medium",
+    "description": "Locking the business into an automatic annual renewal unless canceled within a tiny, easily missed window, often accompanied by uncapped rent or rate spikes."
+  },
+  {
+    "id": "trap_05",
+    "name": "Unclear ownership of intellectual property",
+    "risk_level": "High",
+    "description": "Client pays for custom software or creative deliverables but only receives a limited 'right to use', while the vendor retains all underlying code ownership."
+  },
+  {
+    "id": "trap_06",
+    "name": "Broad or unclear liability/indemnity clauses",
+    "risk_level": "High",
+    "description": "One-sided clauses forcing the small business to indemnify the other party for unlimited damages, or capping the other party's liability to an ambiguous amount."
+  },
+  {
+    "id": "trap_07",
+    "name": "Confidentiality and business-data handling not clearly defined",
+    "risk_level": "Medium",
+    "description": "Permitting broad third-party disclosures or failing to mandate strict deletion of proprietary data, credentials, and customer records upon contract expiry."
+  },
+  {
+    "id": "trap_08",
+    "name": "Unclear subcontracting/third-party access",
+    "risk_level": "Medium",
+    "description": "Allowing the contractor to pass confidential work to unknown subcontractors without obtaining prior written client consent."
+  },
+  {
+    "id": "trap_09",
+    "name": "Missing scope, deliverables or acceptance criteria",
+    "risk_level": "High",
+    "description": "Agreements leaving project scope to be 'discussed later as business needs arise', guaranteeing scope creep and unpaid revisions."
+  },
+  {
+    "id": "trap_10",
+    "name": "Tax/withholding responsibilities not clearly specified",
+    "risk_level": "High",
+    "description": "Failing to specify whether amounts are gross or net of applicable FBR withholding tax (Section 153/155) and provincial sales tax (PRA/SRB), causing unexpected financial deductions."
+  }
+]
