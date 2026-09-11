@@ -205,8 +205,8 @@ with tab_scanner:
     with col_input:
         st.markdown(f"**Current Contract:** `{st.session_state.current_contract_title}`")
         
-        # PDF File Uploader
-        uploaded_file = st.file_uploader("Upload Contract (PDF or TXT):", type=["pdf", "txt"], help="Upload your commercial contract or agreement.")
+        # File Uploader (PDF, DOCX, TXT)
+        uploaded_file = st.file_uploader("Upload Contract (PDF, DOCX, or TXT):", type=["pdf", "docx", "txt"], help="Upload your commercial contract or agreement.")
         if uploaded_file is not None:
             if uploaded_file.name.endswith(".pdf"):
                 try:
@@ -220,6 +220,23 @@ with tab_scanner:
                     st.success(f"Extracted {len(reader.pages)} page(s) from {uploaded_file.name}")
                 except Exception as e:
                     st.error(f"Error reading PDF: {e}")
+            elif uploaded_file.name.endswith(".docx"):
+                try:
+                    import zipfile, xml.etree.ElementTree as ET
+                    with zipfile.ZipFile(io.BytesIO(uploaded_file.read())) as z:
+                        xml_content = z.read('word/document.xml')
+                        tree = ET.fromstring(xml_content)
+                        paragraphs = []
+                        for p in tree.iter('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}p'):
+                            texts = [node.text for node in p.iter('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t') if node.text]
+                            if texts:
+                                paragraphs.append("".join(texts))
+                        extracted_text = "\n\n".join(paragraphs)
+                    st.session_state.current_contract_text = extracted_text
+                    st.session_state.current_contract_title = uploaded_file.name
+                    st.success(f"Extracted Word Document ({uploaded_file.name}) successfully!")
+                except Exception as e:
+                    st.error(f"Error reading Word document: {e}")
             else:
                 st.session_state.current_contract_text = uploaded_file.read().decode("utf-8", errors="ignore")
                 st.session_state.current_contract_title = uploaded_file.name
