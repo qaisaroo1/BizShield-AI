@@ -55,37 +55,6 @@ Over 90% of Pakistani small business owners, freelancers, and early-stage entrep
 - Python 3.10+
 - Google Gemini API Key
 
-### Setup
-```bash
-# Clone the repository
-git clone <repo-url>
-cd bizshield-ai
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Create .env file
-echo "GEMINI_API_KEY=your_gemini_api_key_here" > .env
-
-# Run automated tests
-python test_pipeline.py
-
-# Launch Streamlit web dashboard
-streamlit run app.py
-```
-
-Open [http://localhost:8503](http://localhost:8503) in your browser.
-
----
-
-## 👥 Team & Roles (Pak Angels Hackathon)
-- **Qaisar:** Lead Technical Architect / AI Engineering, Contract Scanner & Privacy Shield, Deployment.
-- **Samia:** Smart Compliance Checklist, Legal Q&A, Prompt Refinement.
-- **Muhammad Ali:** UI/UX & Frontend Styling, Results Presentation, Graphics.
-- **Ali:** Product Requirements Document (PRD), QA Testing, Presentation Slides & Demo Script.
-- **Team Leader (LLB):** Legal & Regulatory Grounding, Legal Accuracy Review, Product Decisions.
-
----
 
 ## ⚖️ Educational Disclaimer
 *BizShield AI provides educational and informational guidance based on verified official Pakistani legal and government sources. It does not constitute formal attorney-client legal advice or certified public accountant services.*
