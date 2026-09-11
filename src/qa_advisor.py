@@ -74,39 +74,55 @@ PRESET_ANSWERS: Dict[str, Dict[str, str]] = {
 }
 
 
+from src.rag_store import LegalRAGStore
+
+
 class LegalAdvisorAgent:
     """
     Legal & Tax Q&A Advisor:
-    Answers everyday small business questions with educational grounding
-    in official Pakistani commercial and tax statutes.
+    RAG-powered conversational engine that retrieves verified Pakistani statutes
+    via semantic vector search before generating educational legal guidance.
     """
 
     def __init__(self):
         self.client = None
+        self.rag_store = LegalRAGStore()
         if GEMINI_API_KEY and genai:
             try:
                 self.client = genai.Client(api_key=GEMINI_API_KEY)
             except Exception as e:
                 print(f"[LegalAdvisorAgent] Client error: {e}")
 
-    def answer_question(self, user_query: str) -> Dict[str, str]:
+    def answer_question(self, user_query: str) -> Dict[str, Any]:
         """
-        Provides educational legal and tax guidance.
-        Uses verified preset knowledge for standard questions, or queries Gemini 3.6 Flash.
+        Provides educational legal and tax guidance augmented with semantic RAG retrieval.
+        Returns:
+            - answer: generated response text
+            - source: primary statute or authority citation
+            - retrieved_chunks: list of top retrieved RAG chunks with similarity scores
         """
-        # Check if query matches one of our 5 preset questions
+        # 1. Semantic RAG Retrieval
+        retrieved_chunks = self.rag_store.search(user_query, top_k=3)
+        context_str = "\n\n".join([
+            f"[Source {i+1}: {c['title']} | Authority: {c['authority']} | Statute: {c['statute']}]\n{c['content']}"
+            for i, c in enumerate(retrieved_chunks)
+        ])
+
+        # 2. Check if query exactly matches one of our 5 preset questions for instant verified response
         for q_key, q_data in PRESET_ANSWERS.items():
             if q_key.lower() in user_query.lower() or user_query.lower() in q_key.lower():
                 return {
                     "answer": f"### 📌 Overview\n{q_data['summary']}\n\n### ⚖️ Key Legal & Tax Guidance\n{q_data['key_points']}\n\n---\n**📚 Official Statutory Reference:**\n*{q_data['sources']}*\n\n> *⚠️ Disclaimer: BizShield AI provides educational and informational guidance based on official Pakistani regulations, not formal legal advice.*",
-                    "source": q_data["sources"]
+                    "source": q_data["sources"],
+                    "retrieved_chunks": retrieved_chunks
                 }
 
-        # Live Gemini AI Response
+        # 3. Live Gemini AI Response Augmented with RAG Context
         if not self.client:
             return {
-                "answer": "BizShield AI provides informational guidance based on Pakistani legal and tax frameworks (SECP Companies Act 2017, FBR Income Tax Ordinance 2001, Contract Act 1872). Please check our preset questions or ensure your API key is active.",
-                "source": "FBR & SECP Official Guidelines"
+                "answer": f"BizShield AI provides informational guidance based on Pakistani legal and tax frameworks.\n\n### Retrieved Statutory Context:\n{context_str}",
+                "source": "FBR & SECP Official Guidelines",
+                "retrieved_chunks": retrieved_chunks
             }
 
         prompt = f"""
@@ -115,14 +131,14 @@ You are BizShield AI, an intelligent legal and tax educational advisor for Pakis
 USER QUESTION:
 \"{user_query}\"
 
+VERIFIED STATUTORY CONTEXT (RETRIEVED FROM RAG KNOWLEDGE STORE):
+\"\"\"
+{context_str}
+\"\"\"
+
 PEDAGOGICAL & STATUTORY INSTRUCTIONS:
 1. Provide a clear, simple, and direct explanation in plain English that a non-lawyer can understand.
-2. Ground your advice in verified Pakistani statutes:
-   - Companies Act 2017 (SECP)
-   - Income Tax Ordinance 2001 (FBR)
-   - Provincial Sales Tax on Services Acts (PRA, SRB, KPRA)
-   - Contract Act 1872
-   - State Bank of Pakistan (SBP) Freelance Remittance Guidelines
+2. Directly apply and cite the retrieved statutory context (SECP Companies Act 2017, FBR Income Tax Ordinance 2001, PRA/SRB Sales Tax, Contract Act 1872).
 3. Use structured bullet points.
 4. Conclude with specific official legal/regulatory citations.
 5. Emphasize that this is educational guidance, not formal attorney advice.
@@ -136,13 +152,16 @@ PEDAGOGICAL & STATUTORY INSTRUCTIONS:
                     temperature=0.3
                 )
             )
+            primary_statute = retrieved_chunks[0]["statute"] if retrieved_chunks else "Pakistani Commercial Law"
             return {
                 "answer": response.text.strip(),
-                "source": "Pakistani Commercial Statutes & Regulatory Guidelines (SECP / FBR / SBP)"
+                "source": primary_statute,
+                "retrieved_chunks": retrieved_chunks
             }
         except Exception as e:
             print(f"[LegalAdvisorAgent] Query error: {e}")
             return {
                 "answer": f"Unable to fetch live response ({e}). Please review our preset guides or try again.",
-                "source": "System Fallback"
+                "source": "System Fallback",
+                "retrieved_chunks": retrieved_chunks
             }

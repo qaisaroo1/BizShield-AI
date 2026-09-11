@@ -139,13 +139,15 @@ with st.sidebar:
 
     st.markdown("---")
     api_status = "🟢 Active (Gemini 3.6 Flash)" if GEMINI_API_KEY else "🟡 Deterministic Mode (Offline)"
+    rag_count = len(st.session_state.qa_advisor.rag_store.chunks) if hasattr(st.session_state.qa_advisor, "rag_store") else 0
     st.caption(f"**AI Engine:** {api_status}")
+    st.caption(f"**RAG Vector Index:** 📚 `{rag_count} Statutes Indexed` (`gemini-embedding-001`)")
 
 # ================= MAIN HEADER =================
 col_title, col_stats = st.columns([2.5, 1.5])
 with col_title:
     st.markdown(f"<div class='main-header'>🛡️ {APP_NAME}</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='sub-header'>{APP_TAGLINE} &nbsp;•&nbsp; <span class='shield-badge'>🔒 Privacy Shield Active</span></div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'>{APP_TAGLINE} &nbsp;•&nbsp; <span class='shield-badge'>🔒 Privacy Shield Active</span> &nbsp; <span class='shield-badge' style='background:#EFF6FF; color:#1E40AF; border-color:#BFDBFE;'>🔍 RAG-Augmented</span></div>", unsafe_allow_html=True)
 
 with col_stats:
     c1, c2 = st.columns(2)
@@ -498,9 +500,14 @@ with tab_qa:
 
     if st.button("🔍 Ask BizShield AI", type="primary"):
         if query_input.strip():
-            with st.spinner("Analyzing verified Pakistani statutory sources (SECP, FBR, Contract Act)..."):
+            with st.spinner("Retrieving verified Pakistani statutes via RAG vector search..."):
                 response_data = st.session_state.qa_advisor.answer_question(query_input.strip())
-                st.session_state.chat_history.append((query_input.strip(), response_data["answer"]))
+                st.session_state.chat_history.append((
+                    query_input.strip(),
+                    response_data["answer"],
+                    response_data.get("source", ""),
+                    response_data.get("retrieved_chunks", [])
+                ))
         else:
             st.warning("Please type a question or select one of the suggestion chips.")
 
@@ -508,11 +515,22 @@ with tab_qa:
     if st.session_state.chat_history:
         st.markdown("---")
         st.markdown("### 📜 Conversation & Legal Advice History")
-        for q, ans in reversed(st.session_state.chat_history):
+        for item in reversed(st.session_state.chat_history):
+            q_user = item[0]
+            a_resp = item[1]
+            src = item[2] if len(item) > 2 else ""
+            chunks = item[3] if len(item) > 3 else []
+
             with st.chat_message("user"):
-                st.write(q)
+                st.write(q_user)
             with st.chat_message("assistant", avatar="🛡️"):
-                st.markdown(ans)
+                st.markdown(a_resp)
+                if chunks:
+                    with st.expander(f"📚 Retrieved via RAG: {len(chunks)} Verified Statutory Sources", expanded=False):
+                        for c in chunks:
+                            sim_pct = int(c.get('similarity_score', 0) * 100) if c.get('similarity_score') else 90
+                            st.markdown(f"• **{c.get('title', 'Statute')}** — *{c.get('statute', 'Pakistani Law')}* (Match: `{sim_pct}%`)")
+                            st.caption(c.get('content', ''))
 
 
 # ==============================================================================

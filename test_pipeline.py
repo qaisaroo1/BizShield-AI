@@ -22,13 +22,16 @@ from src.samples import (
 )
 
 
+from src.rag_store import LegalRAGStore
+
+
 def run_tests():
     print("=" * 60)
     print("🛡️  Testing BizShield AI Core Multi-Module Architecture")
     print("=" * 60)
 
     # 1. Test Privacy Shield
-    print("\n[1/4] Testing Privacy Shield (Auto-Anonymizer)...")
+    print("\n[1/5] Testing Privacy Shield (Auto-Anonymizer)...")
     shield = PrivacyShield()
     test_text = """
 Landlord: ABC Properties
@@ -47,7 +50,7 @@ Monthly Rent: PKR 150,000 to Office No. 12, Lahore
     print("  ✅ Privacy Shield verified: Zero sensitive personal data leaked!")
 
     # 2. Test Contract Scanner on Sample 1 (Commercial Lease)
-    print("\n[2/4] Testing Contract Scanner on Sample 1 (Commercial Lease)...")
+    print("\n[2/5] Testing Contract Scanner on Sample 1 (Commercial Lease)...")
     scanner = ContractScanner()
     report1 = scanner.analyze_contract(SAMPLE_1_LEASE_TEXT)
     print(f"  Contract Type: {report1.contract_type}")
@@ -61,7 +64,7 @@ Monthly Rent: PKR 150,000 to Office No. 12, Lahore
     print("  ✅ Sample 1 Lease audit verified against Expected Findings!")
 
     # 3. Test Contract Scanner on Sample 2 (Vendor Agreement)
-    print("\n[3/4] Testing Contract Scanner on Sample 2 (Vendor Agreement)...")
+    print("\n[3/5] Testing Contract Scanner on Sample 2 (Vendor Agreement)...")
     report2 = scanner.analyze_contract(SAMPLE_2_VENDOR_TEXT)
     print(f"  Contract Type: {report2.contract_type}")
     print(f"  Overall Risk Rating: {report2.overall_risk_score}/100 ({report2.overall_risk_level})")
@@ -70,7 +73,7 @@ Monthly Rent: PKR 150,000 to Office No. 12, Lahore
     print("  ✅ Sample 2 Vendor Agreement audit verified!")
 
     # 4. Test Compliance Engine & Q&A
-    print("\n[4/4] Testing Compliance Engine & Legal Q&A Advisor...")
+    print("\n[4/5] Testing Compliance Engine & Legal Q&A Advisor...")
     engine = SmartComplianceEngine()
     tasks_sp = engine.generate_checklist(entity_type="Sole Proprietorship / Freelancer", is_exporter=True)
     print(f"  Sole Proprietorship Tasks: {len(tasks_sp)} compliance items generated.")
@@ -82,10 +85,21 @@ Monthly Rent: PKR 150,000 to Office No. 12, Lahore
     print(f"  Sample Query: '{sample_q}'")
     print(f"  Advisor Answer Preview: {qa_resp['answer'][:120]}...")
     assert len(qa_resp['answer']) > 50, "Answer was too short"
+    assert "retrieved_chunks" in qa_resp, "RAG chunks missing from advisor response"
+    print(f"  RAG Citations Retrieved: {len(qa_resp['retrieved_chunks'])} statutory sources")
     print("  ✅ Compliance engine and Q&A advisor verified successfully!")
 
+    # 5. Test Legal RAG Vector Store
+    print("\n[5/5] Testing Legal RAG Vector Store (Gemini Embeddings)...")
+    rag = LegalRAGStore()
+    results = rag.search("income tax withholding on commercial rent", top_k=2)
+    print(f"  RAG Total Chunks: {len(rag.chunks)}")
+    print(f"  Top RAG Match: '{results[0]['title']}' (Statute: {results[0]['statute']}, Score: {results[0]['similarity_score']})")
+    assert len(results) > 0, "RAG search returned no results"
+    print("  ✅ Semantic RAG vector retrieval verified successfully!")
+
     print("\n" + "=" * 60)
-    print("🎉 ALL BIZSHIELD AI CORE MODULES PASSED VERIFICATION!")
+    print("🎉 ALL 5 BIZSHIELD AI CORE MODULES PASSED VERIFICATION!")
     print("=" * 60)
 
 
