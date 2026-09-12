@@ -86,17 +86,17 @@ SAMPLE_1_EXPECTED_FINDINGS = [
     },
     {
         "clause": "Clause 12: Late Payment",
-        "issue": "Consequences of late payment are vague ('appropriate action'). Lacks a clear grace period and agreed late payment mechanism.",
+        "issue": "Consequences of late payment are vague ('appropriate action'). Lacks a clear grace period and agreed consequences.",
         "risk": "Medium",
-        "category": "Unclear Payment Terms (Commercial Risk)",
-        "action": "Define a 7-10 day grace period followed by a specific reasonable late fee to avoid arbitrary dispute."
+        "category": "Unclear Payment Terms (Potential Risk)",
+        "action": "Define a clear grace period and applicable consequences to avoid arbitrary dispute."
     },
     {
         "clause": "Clause 14: Renewal",
-        "issue": "Missing renewal mechanism, notice window, and rent escalation formula (e.g., maximum 8-10% rent increment upon renewal as a commercial benchmark).",
+        "issue": "Missing renewal mechanism, notice window, and agreed rent revision mechanism.",
         "risk": "High",
-        "category": "Missing Protections (Commercial Risk)",
-        "action": "Add clause allowing tenant option to renew with 60 days notice prior to expiry, with rent increase capped at a negotiated commercial benchmark (e.g. 8-10%)."
+        "category": "Missing Protections (Potential Risk)",
+        "action": "Add clause defining an agreed/negotiated renewal mechanism and clear notice window prior to lease expiry."
     },
     {
         "clause": "Clause 17: Notices",
@@ -114,10 +114,10 @@ SAMPLE_1_EXPECTED_FINDINGS = [
     },
     {
         "clause": "Tax Considerations (Missing Clause)",
-        "issue": "No mention of Advance Income Tax withholding under Section 155 of the Income Tax Ordinance (if tenant is a prescribed agent), or provincial sales tax on rent.",
+        "issue": "No mention of applicable withholding tax obligations or provincial sales tax on rent.",
         "risk": "High",
-        "category": "Tax / Withholding Responsibility Missing (Compliance Risk)",
-        "action": "Add explicit clause clarifying whether PKR 150,000 rent is gross or net of applicable withholding tax (Section 155), deductible if the tenant is a prescribed withholding agent under current FBR rules."
+        "category": "Tax / Withholding Responsibility Missing (Potential Risk)",
+        "action": "Add explicit clause clarifying whether PKR 150,000 rent is gross or net of applicable withholding obligations depending on payer, transaction, and current tax law."
     }
 ]
 
@@ -221,23 +221,23 @@ SAMPLE_2_EXPECTED_FINDINGS = [
     },
     {
         "clause": "Clause 6: Intellectual Property",
-        "issue": "Client is only granted right to 'use' materials for business purposes, rather than full IP ownership of custom code paid for.",
+        "issue": "Client is only granted right to 'use' materials for business purposes, leaving underlying ownership of custom deliverables unallocated.",
         "risk": "High",
-        "category": "Unclear IP Ownership",
-        "action": "State clearly: Upon full payment, all bespoke source code, designs, and content are assigned 100% to Client."
+        "category": "Unclear IP Ownership (Missing Protection)",
+        "action": "As a contractual option, specify that bespoke source code, designs, and deliverables are assigned to Client upon full payment, with vendor retaining pre-existing tools."
     },
     {
         "clause": "Clause 8: Liability",
         "issue": "Liability is capped at an ambiguous 'amount considered reasonable in the circumstances'.",
         "risk": "Medium",
-        "category": "Unclear Liability Cap",
-        "action": "Standardize liability cap (e.g., total fees paid under this Agreement in the preceding 6-12 months)."
+        "category": "Unclear Liability Cap (Potential Risk)",
+        "action": "Define an explicit agreed liability cap and clear exclusions/carve-outs (such as gross negligence or confidentiality breach)."
     },
     {
         "clause": "Clause 10: Subcontracting",
         "issue": "Vendor can subcontract work to third parties without prior notice or approval from Client.",
         "risk": "Medium",
-        "category": "Unclear Subcontracting",
+        "category": "Unclear Subcontracting (Potential Risk)",
         "action": "Require prior written consent from Client before subcontracting core services, with binding confidentiality on subcontractors."
     }
 ]

@@ -880,23 +880,23 @@ with tab_qa:
 with tab_about:
     st.markdown("## 🛡️ About BizShield AI")
     st.markdown("""
-    **BizShield AI** is an AI-powered legal and tax assistant designed specifically for small business owners, freelancers, and early-stage entrepreneurs in Pakistan.
+    **BizShield AI** is an AI-powered legal and tax information assistant designed specifically for small business owners, freelancers, and early-stage entrepreneurs in Pakistan.
 
     ### 🎯 The Problem
-    Over 90% of small businesses and solo entrepreneurs struggle with:
-    1. Signing contracts with hidden clauses and dangerous liability traps.
-    2. Navigating corporate registration (SECP) and tax obligations (FBR, Active Taxpayer List, Provincial Sales Tax).
-    3. Inability to afford expensive corporate law firms or chartered accountant retainers.
+    Small businesses, freelancers, and early-stage entrepreneurs in Pakistan frequently struggle with:
+    1. Signing contracts with hidden clauses and one-sided liability terms.
+    2. Navigating corporate registration (SECP) and applicable tax obligations (FBR, Active Taxpayer List, Provincial Sales Tax, and withholding duties).
+    3. Inability to afford expensive corporate legal retainers or professional accounting fees.
 
     ### 💡 The Solution
     BizShield AI provides:
-    - **Contract Scanner & Privacy Shield:** Automatically removes confidential party details and audits contracts for 10 common traps.
+    - **Contract Scanner & Privacy Shield:** Automatically redacts personal identifiers and audits contracts for 10 common business traps.
     - **Smart Compliance Checklist:** Customized registration and annual tax filing roadmaps.
-    - **Legal & Tax Q&A:** Accurate, structured educational answers referencing official Pakistani statutes.
+    - **Legal & Tax Q&A:** Accurate, structured educational answers referencing official Pakistani statutory authorities.
 
     ---
 
     ### ⚖️ Important Principle & Disclaimer
-    > **Educational Guidance Only:**  
-    > BizShield AI is designed to provide **informational and educational guidance** to help small business owners make informed decisions. It does not constitute formal attorney-client legal advice or licensed tax practice. All claims are grounded in verified official sources (SECP Companies Act 2017, FBR Income Tax Ordinance 2001, Contract Act 1872).
+    > **Educational Decision-Support Only:**  
+    > BizShield AI is designed to provide **informational and educational preliminary decision-support guidance** to help small business owners understand their commercial options. It does not constitute formal attorney-client legal advice, a definitive legal opinion, or certified public accountant services. Users should consult a qualified lawyer or licensed tax professional for case-specific advice before executing agreements or making binding regulatory filings.
     """)

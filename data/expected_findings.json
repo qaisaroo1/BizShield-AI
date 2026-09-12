@@ -19,14 +19,14 @@
       "clause": "Clause 12: Late Payment",
       "expected_issue": "Late payment — late fee/penalty ya exact consequences specified nahi.",
       "risk_level": "Medium",
-      "suggested_action": "Define a 7-10 day grace period followed by a specific reasonable late fee, preventing arbitrary eviction or undefined penalties."
+      "suggested_action": "Define a clear grace period and applicable consequences to avoid arbitrary dispute or undefined penalties."
     },
     {
       "finding_number": 4,
       "clause": "Clause 14: Renewal",
       "expected_issue": "Renewal — renewal terms, notice period aur revised rent ka mechanism missing hai.",
       "risk_level": "High",
-      "suggested_action": "Add clause allowing tenant option to renew with 60 days notice prior to expiry, with rent increase capped at 8-10%."
+      "suggested_action": "Add clause defining an agreed/negotiated renewal mechanism and clear notice window prior to lease expiry."
     },
     {
       "finding_number": 5,
@@ -47,7 +47,7 @@
       "clause": "Tax Considerations (Missing Clause)",
       "expected_issue": "Tax considerations — agreement mein applicable tax/withholding treatment ka specific handling mention nahi.",
       "risk_level": "High",
-      "suggested_action": "Add explicit clause clarifying whether PKR 150,000 rent is gross or net of Section 155 Income Tax Ordinance withholding deductible by corporate tenants."
+      "suggested_action": "Add explicit clause clarifying whether PKR 150,000 rent is gross or net of applicable withholding obligations depending on payer, transaction, and current tax law."
     }
   ],
   "sample_2_vendor_agreement": [
@@ -75,16 +75,16 @@
     {
       "finding_number": 4,
       "clause": "Clause 6: Intellectual Property",
-      "expected_issue": "Client only receives right to use materials; vendor retains underlying ownership of custom deliverables.",
+      "expected_issue": "Client only receives right to use materials; ownership of custom deliverables remains unallocated.",
       "risk_level": "High",
-      "suggested_action": "State clearly: Upon full payment, all bespoke source code, designs, and content are assigned 100% to Client."
+      "suggested_action": "As a contractual option, specify that bespoke source code, designs, and deliverables are assigned to Client upon full payment, with vendor retaining pre-existing tools."
     },
     {
       "finding_number": 5,
       "clause": "Clause 8: Liability",
       "expected_issue": "Liability capped at an ambiguous 'amount considered reasonable in the circumstances'.",
       "risk_level": "Medium",
-      "suggested_action": "Standardize liability cap to total fees paid under this Agreement in preceding 6-12 months."
+      "suggested_action": "Define an explicit agreed liability cap and clear exclusions/carve-outs (such as gross negligence or confidentiality breach)."
     },
     {
       "finding_number": 6,

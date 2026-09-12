@@ -14,12 +14,12 @@ PRESET_ANSWERS: Dict[str, Dict[str, str]] = {
     "What should I check before signing a commercial lease?": {
         "summary": "Before signing a commercial lease in Pakistan, you should verify 6 critical commercial areas. Note that tenancy terms depend on provincial rent restriction legislation and the mutually agreed written contract.",
         "key_points": """
-1. **Clear Termination & Notice Period:** Avoid ambiguous phrases like 'reasonable notice'. Agree on an explicit written notice period (mutually negotiated benchmarks are commonly 60 to 90 days).
+1. **Clear Termination & Notice Period:** Avoid ambiguous phrases like 'reasonable notice'. Agree on an explicit written notice period (mutually negotiated commercial terms).
 2. **Maintenance Responsibilities:** Clearly divide structural repairs (roof, exterior walls, primary plumbing = Landlord) from day-to-day internal operational maintenance (Tenant).
-3. **Renewal Terms & Rent Escalation:** Specify renewal mechanisms prior to lease expiry. Annual rent escalation caps (commonly negotiated between 8% to 10%) should be explicitly agreed in writing.
+3. **Renewal Terms & Rent Escalation:** Specify renewal mechanisms prior to lease expiry. Ensure a clear, agreed rent-escalation mechanism (rather than undefined increases) is explicitly stipulated in writing.
 4. **Security Deposit Refund:** Explicitly state that the security deposit is refundable upon vacant possession, along with inspection timelines.
 5. **Permitted Use & Commercial Zoning:** Ensure the property is commercially approved by the relevant local authority (e.g., LDA in Lahore, CDA in Islamabad, KDA in Karachi) for your business activity.
-6. **Withholding Tax Allocation:** If the tenant qualifies as a prescribed withholding agent, clarify whether agreed rent is inclusive or exclusive of advance income tax withholding under Section 155 of the Income Tax Ordinance 2001.
+6. **Withholding Tax Allocation:** If the tenant qualifies as a prescribed withholding agent, clarify whether agreed rent is inclusive or exclusive of advance income tax withholding under applicable tax laws.
 
 🔍 **Verification Step:** Tenancy rules and eviction procedures are governed by provincial rent laws (e.g. Punjab Rented Premises Act 2009, Sindh Rented Premises Ordinance 1979, Islamabad Rent Restriction Ordinance 2001). Always verify provincial jurisdiction and register your lease agreement.
 """,
@@ -30,7 +30,7 @@ PRESET_ANSWERS: Dict[str, Dict[str, str]] = {
         "key_points": """
 1. **Termination for Convenience:** Review whether your agreement contains a convenience clause allowing exit without cause. If agreed, comply strictly with the written notice timeline specified in the contract.
 2. **The Risk of 'Reasonable Notice':** If notice days are unspecified, courts interpret notice based on customary industry practice and payment cycles, but this frequently leads to litigation. Always specify exact days in writing.
-3. **Termination for Breach & Cure Periods:** A 14 to 30-day 'Notice to Cure' is a standard commercial drafting mechanism allowing a defaulting party to rectify a defect. However, whether a cure period is legally mandatory depends on the terms of your contract and whether the breach is fundamental under Sections 39 and 73 of the Contract Act 1872.
+3. **Termination for Breach & Cure Periods:** Contracts often negotiate a cure period (the length and availability of which depend on the contract terms and the nature/severity of the breach) before termination takes effect. Whether a default justifies immediate repudiation without a cure period depends on contract terms and whether the breach is fundamental under Sections 39 and 73 of the Contract Act 1872.
 4. **Exit Consequences & Deposit Forfeiture:** Examine clauses governing liquidated damages, unamortized fit-out costs, or deposit forfeiture upon early exit.
 
 🔍 **Verification Step:** Review contract dispute resolution clauses and consult legal counsel if terminating for material breach or claiming damages under the Specific Relief Act 1877.
@@ -45,7 +45,7 @@ PRESET_ANSWERS: Dict[str, Dict[str, str]] = {
 3. **Applicable Withholding Rates:**
    - Rates on goods, services, and commercial contracts are determined by the First Schedule and Tenth Schedule of the Income Tax Ordinance 2001.
    - Rates vary based on whether the recipient is a company vs individual/AOP, the specific service sector, and whether the recipient is an Active Taxpayer (ATL) filer.
-   - Non-filers are subject to 100% higher withholding under the Tenth Schedule.
+   - Non-filers may result in higher applicable withholding rates under the Tenth Schedule.
 4. **Contractual Pricing Clarity:** Commercial contracts must explicitly state whether prices are **'inclusive of all applicable taxes'** or **'exclusive of provincial sales taxes'** (PRA/SRB/KPRA) to prevent unexpected payment shortfalls.
 
 🔍 **Verification Step:** Withholding schedules change with annual Finance Acts. Always verify active rates for the current tax year on FBR Iris (iris.fbr.gov.pk) or through a certified tax advisor.

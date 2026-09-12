@@ -26,21 +26,21 @@
       "name": "Punjab Revenue Authority",
       "primary_statute": "Punjab Sales Tax on Services Act 2012",
       "portal": "pra.punjab.gov.pk",
-      "mandate": "Levy and collection of provincial sales tax on services rendered in Punjab (standard rate 16%, with specific or reduced rates on designated IT/ITeS services as updated in provincial schedules)."
+      "mandate": "Levy and collection of provincial sales tax on services rendered in Punjab (standard rate 16%, with specific or reduced rates on designated IT/ITeS services as updated in provincial schedules; verify current applicable law and notification with PRA)."
     },
     {
       "code": "SRB",
       "name": "Sindh Revenue Board",
       "primary_statute": "Sindh Sales Tax on Services Act 2011",
       "portal": "srb.gos.pk",
-      "mandate": "Levy and collection of provincial sales tax on services rendered in Sindh (standard rate 13%, with reduced/concessionary rates on IT services as updated in provincial schedules)."
+      "mandate": "Levy and collection of provincial sales tax on services rendered in Sindh (standard rate 13%, with reduced/concessionary rates on IT services as updated in provincial schedules; verify current applicable law and notification with SRB)."
     }
   ],
   "key_compliance_deadlines": [
     {
       "event": "Annual Income Tax Return (Individuals & AOPs)",
       "statutory_deadline": "September 30 each year (unless formally extended by FBR)",
-      "consequence_of_delay": "Delay past statutory deadline leads to exclusion from the Active Taxpayer List (ATL) and higher withholding tax deductions (typically 100% higher under Tenth Schedule). FBR allows restoration to ATL upon filing the return and paying the applicable surcharge under Section 182A, with the ATL register updated on a daily basis."
+      "consequence_of_delay": "Delay past statutory deadline leads to exclusion from the Active Taxpayer List (ATL) and may result in higher applicable withholding rates under the Tenth Schedule. FBR allows restoration to ATL upon filing the return and paying the applicable surcharge under Section 182A, with the ATL register updated on a daily basis."
     },
     {
       "event": "Annual Income Tax Return (Companies / Pvt Ltd)",

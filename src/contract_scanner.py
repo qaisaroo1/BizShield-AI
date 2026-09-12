@@ -125,11 +125,11 @@ STRICT TONE & SIMPLICITY RULES (CRITICAL):
    - Sentence 2: Exactly how does this hurt your pocket or trap your business?
 3. In "suggested_revision", give simple, clean wording they can copy and paste.
 4. Provide a 3-5 bullet point summary in everyday words.
-5. DISTINGUISH COMMERCIAL RISKS VS STATUTORY VIOLATIONS:
-   - Do NOT label a term as 'illegal' or 'unlawful' unless it directly violates a statutory provision (e.g. Contract Act, 1872).
-   - If a clause is one-sided, ambiguous, or lacks fair protections, categorize it as 'Commercial Risk', 'Ambiguous Clause', or 'Missing Protection'.
-   - Treat timelines like 30, 60, or 90-day notices and rent escalation percentages (e.g. 8-10%) as recommended commercial negotiation benchmarks rather than universal legal mandates.
-   - Reference withholding tax sections (e.g. Section 153, Section 155) only after identifying the relevant transaction type and whether a party is a prescribed withholding agent.
+5. PRODUCT RISK CLASSIFICATION (NOT LEGAL DETERMINATIONS):
+   - Never declare contracts or terms as 'illegal' or 'unlawful'. Present findings strictly as 'Potential Risk', 'Unclear Clause', or 'Missing Protection'.
+   - Treat risk levels (High / Medium / Low) as a product risk prioritization tool for business negotiation, not a legal violation indicator.
+   - Do NOT assume fixed legal mandates for commercial terms (such as notice periods, cure periods, rent escalation caps, or liability caps). Frame them as matters for mutual commercial negotiation.
+   - For taxes, use generic wording: 'applicable withholding tax obligations for prescribed persons and relevant transactions under current law', rather than assuming universal applicability of specific sections.
 
 Return strictly valid JSON adhering to this exact schema:
 {{
@@ -199,13 +199,13 @@ Return strictly valid JSON adhering to this exact schema:
                 "You are committing to pay PKR 150,000 per month for Office No. 12, Lahore for 2 years (PKR 3.6 Million total).",
                 "⚠️ Notice Period is dangerously vague: 'Reasonable notice' allows either party to argue about eviction deadlines.",
                 "⚠️ Maintenance duties are broad: As written, you could be forced to pay for major structural building damages.",
-                "⚠️ Tax Treatment is missing: If the tenant is a prescribed withholding agent under FBR rules, advance tax withholding under Section 155 applies; this contract should state whether rent is inclusive or exclusive of tax.",
+                "⚠️ Tax Treatment is missing: The contract does not state whether rent is inclusive or exclusive of applicable withholding obligations or provincial sales taxes.",
                 "✅ Security deposit (PKR 300,000) is explicitly designated as refundable."
             ],
             red_flags=findings,
             missing_protections=[
-                "Tax withholding allocation clause (clarifying Section 155 compliance if tenant is a prescribed agent).",
-                "Renewal rent escalation cap (e.g. commercial negotiation benchmark of 8-10% increment).",
+                "Tax withholding allocation clause addressing applicable withholding obligations depending on payer, transaction, and current tax law.",
+                "Agreed renewal mechanism and notice terms prior to lease expiry.",
                 "Force majeure clause (protection against building damage, municipal closure, or natural disasters).",
                 "Landlord structural maintenance guarantee."
             ],
@@ -236,13 +236,13 @@ Return strictly valid JSON adhering to this exact schema:
                 "You are engaging DigitalPro Services for website development for PKR 120,000 over 1 year.",
                 "🚨 Budget Risk: Clause 3 allows the Vendor to unilaterally increase charges whenever additional work or circumstances require it.",
                 "🚨 Scope Risk: Clause 1 has no fixed deliverables list; features are left to be 'discussed later', leading to scope creep.",
-                "🚨 IP Risk: Clause 6 only gives you the right to 'use' the website, but doesn't transfer full ownership of the source code you paid for!",
+                "🚨 IP Risk: Clause 6 only gives you the right to 'use' the website, but leaves underlying ownership of custom deliverables unallocated.",
                 "⚠️ Delivery timeline has no concrete deadline dates—only 'reasonable efforts within an appropriate timeframe'."
             ],
             red_flags=findings,
             missing_protections=[
                 "Detailed Statement of Work (SOW) with milestone delivery dates.",
-                "Full Intellectual Property assignment to Client upon final payment.",
+                "Contractual intellectual property assignment for bespoke deliverables upon final payment.",
                 "Written Change-Order requirement before any additional fees can be invoiced.",
                 "Client approval requirement before subcontracting confidential work to third parties."
             ],

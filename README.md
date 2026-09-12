@@ -5,21 +5,21 @@
 ---
 
 ## 📌 Problem Statement
-Over 90% of Pakistani small business owners, freelancers, and early-stage entrepreneurs struggle with:
+Pakistani small business owners, freelancers, and early-stage entrepreneurs frequently struggle with:
 1. **Confusing & Risky Contracts:** Signing multi-page commercial agreements containing dangerous liability traps, vague termination clauses, and delayed payment penalties.
-2. **Regulatory & Tax Complexity:** Navigating SECP company incorporation, FBR Active Taxpayer List (ATL) requirements, provincial sales tax on services (PRA/SRB), and mandatory withholding tax deductions.
-3. **High Legal Costs:** Being unable to afford retainers for corporate law firms or chartered accountants (often charging PKR 50,000–100,000+).
+2. **Regulatory & Tax Complexity:** Navigating SECP company incorporation, FBR Active Taxpayer List (ATL) requirements, provincial sales tax on services (PRA/SRB), and applicable withholding tax obligations for prescribed persons and relevant transactions.
+3. **High Legal Costs:** Being unable to afford regular retainers for corporate law firms or chartered accountants.
 
 ---
 
 ## 💡 Solution: BizShield AI
-**BizShield AI** acts as a pocket legal and tax advisor providing simple, structured, and actionable guidance grounded in verified Pakistani statutory sources.
+**BizShield AI** acts as an AI-powered legal and tax information assistant providing simple, structured, and actionable guidance grounded in verified Pakistani statutory sources.
 
 ### 🌟 Core Modules
 
 ### 1. 📑 Contract Scanner & Privacy Shield
-- **Built-in Auto-Anonymizer:** Automatically identifies and masks sensitive personal identifiers (CNIC, phone numbers, email addresses, bank accounts/IBAN, and corporate party names) *before* passing text to the AI engine.
-- **Clause Risk Auditor:** Analyzes agreements against **10 common small-business traps**:
+- **Automated Privacy Redaction Layer:** Identifies and masks common personal identifiers (CNIC, phone numbers, email addresses, bank accounts/IBAN, and corporate party names) to minimize data exposure *before* passing text to the AI engine. Users can also define custom sensitive phrases for added privacy protection.
+- **Clause Risk Auditor:** Analyzes agreements against **10 common small-business traps**, categorizing findings as Potential Risk, Unclear Clause, or Missing Protection:
   - Vague termination rights or notice periods
   - Unclear payment terms or late-payment consequences
   - Unilateral price/fee changes
@@ -29,13 +29,13 @@ Over 90% of Pakistani small business owners, freelancers, and early-stage entrep
   - Confidentiality & data handling ambiguity
   - Uncontrolled subcontracting
   - Missing scope, deliverables, or acceptance criteria
-  - Missing tax/withholding allocation (Section 155 Income Tax Ordinance)
+  - Missing tax/withholding responsibility allocation under applicable tax laws
 - **Plain-English Executive Summary:** Translates multi-page "legalese" into 3-5 clear bullet points for non-lawyers.
-- **Actionable Counter-Proposals:** Provides exact replacement clause wording to push back against one-sided terms.
+- **Actionable Counter-Proposals:** Provides suggested alternative wording for consideration to push back against one-sided terms.
 
 ### 2. ✅ Smart Compliance Checklist
 - Dynamic roadmap tailored by entity type (**Sole Proprietorship / Freelancer, SMC-Pvt Ltd, Partnership / AOP, Private Limited**).
-- Covers SECP eServices, FBR NTN registration, Provincial Sales Tax on Services, PSEB export registration (0.25% concessionary tax credit), and bank account setup.
+- Covers SECP eServices, FBR NTN registration, Provincial Sales Tax on Services, PSEB export registration guidance and applicable concessionary tax regimes under prevailing law (such as Section 154A subject to statutory conditions), and bank account setup.
 - Interactive progress tracker with completion metrics.
 
 ### 3. 💬 Legal & Tax Q&A Advisor
@@ -55,6 +55,7 @@ Over 90% of Pakistani small business owners, freelancers, and early-stage entrep
 - Python 3.10+
 - Google Gemini API Key
 
+---
 
 ## ⚖️ Educational Disclaimer
-*BizShield AI provides educational and informational guidance based on verified official Pakistani legal and government sources. It does not constitute formal attorney-client legal advice or certified public accountant services.*
+*BizShield AI is designed to provide informational and educational preliminary decision-support guidance based on official Pakistani legal and regulatory sources. It does not constitute formal attorney-client legal advice, a definitive legal opinion, or certified public accountant services. Commercial contracts, tax rates, and regulatory mandates are subject to case-specific facts and legislative amendments. Users should consult a qualified lawyer or licensed tax professional for case-specific legal or tax advice before executing agreements or making binding regulatory filings.*
