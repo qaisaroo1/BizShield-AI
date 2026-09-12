@@ -12,7 +12,7 @@
     },
     {
       "question": "Who is responsible for taxes or withholding on this payment?",
-      "summary": "Every entity is responsible for its own net income tax liability. However, where a payer qualifies as a 'prescribed person' (which includes corporate companies, registered partnerships/AOPs, and individuals whose turnover exceeds statutory thresholds under Section 153), they are legally obligated to deduct advance withholding tax at source before making payment. Withholding rates on goods, services, and contracts vary depending on the transaction type, recipient classification, and Active Taxpayer List (ATL) status under the First and Tenth Schedules of the Income Tax Ordinance 2001. Contracts must explicitly state whether prices are 'inclusive' or 'exclusive' of applicable withholding and provincial sales taxes.",
+      "summary": "Every entity is responsible for its own net income tax liability. Where the payer is a prescribed withholding agent for the relevant transaction under the applicable provision of the Income Tax Ordinance 2001, tax may be required to be deducted at source. Withholding rates on goods, services, and contracts vary depending on the transaction type, recipient classification, and Active Taxpayer List (ATL) status under the First and Tenth Schedules of the Income Tax Ordinance 2001. Contracts must explicitly state whether prices are 'inclusive' or 'exclusive' of applicable withholding and provincial sales taxes.",
       "legal_basis": "Income Tax Ordinance 2001 (Sections 152, 153, 155, Tenth Schedule) & Provincial Sales Tax on Services Acts"
     },
     {

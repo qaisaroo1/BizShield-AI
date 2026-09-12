@@ -41,7 +41,7 @@ PRESET_ANSWERS: Dict[str, Dict[str, str]] = {
         "summary": "Under Pakistani tax law, tax liability depends on the transaction type, recipient classification, and whether the payer is a prescribed withholding agent.",
         "key_points": """
 1. **General Principle:** Every business entity is legally responsible for its own net annual income tax obligations.
-2. **Withholding Tax (WHT) Obligations:** Advance tax withholding is not limited to large corporations. 'Prescribed persons' under Section 153(7) (including companies, registered AOPs/partnerships, and individuals whose turnover exceeds statutory thresholds) are legally required to deduct tax at source.
+2. **Withholding Tax (WHT) Obligations:** Where the payer is a prescribed withholding agent for the relevant transaction under the applicable provision of the Income Tax Ordinance 2001, tax may be required to be deducted at source.
 3. **Applicable Withholding Rates:**
    - Rates on goods, services, and commercial contracts are determined by the First Schedule and Tenth Schedule of the Income Tax Ordinance 2001.
    - Rates vary based on whether the recipient is a company vs individual/AOP, the specific service sector, and whether the recipient is an Active Taxpayer (ATL) filer.
