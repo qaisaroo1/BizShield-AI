@@ -2,28 +2,28 @@
   "faq": [
     {
       "question": "What should I check before signing a commercial lease?",
-      "summary": "Verify 6 critical points: exact written termination notice (60-90 days), clear maintenance separation (structural vs operational), renewal rent increase cap (8-10%), security deposit refund terms, municipal commercial zoning, and Section 155 tax withholding allocation.",
-      "legal_basis": "Punjab Rented Premises Act 2009 / Islamabad Rent Restriction Ordinance / Income Tax Ordinance 2001 (Section 155)"
+      "summary": "Verify 6 critical commercial areas: (1) Clear written termination notice (mutually agree on a realistic benchmark such as 60-90 days, rather than vague 'reasonable notice'), (2) Clear division of maintenance obligations (landlord structural vs tenant internal operations), (3) Agreed renewal terms and rent escalation mechanisms (commonly negotiated around 8-10% annually), (4) Explicit security deposit refund timeline, (5) Commercial zoning compliance under local development authority, and (6) Withholding tax treatment under Section 155 of the Income Tax Ordinance 2001 (if the tenant is a prescribed withholding agent). Note that statutory rent rules vary by province (e.g. Punjab Rented Premises Act 2009, Islamabad Rent Restriction Ordinance 2001, Sindh Rented Premises Ordinance 1979).",
+      "legal_basis": "Provincial Rented Premises Legislation / Contract Act 1872 / Income Tax Ordinance 2001 (Section 155)"
     },
     {
       "question": "Can I terminate this contract early, and what notice is required?",
-      "summary": "Early termination depends on your contract clause. Avoid 'reasonable notice' and specify exact days. For breach of contract, a 14-30 day formal Notice to Cure is legally required before termination.",
+      "summary": "Early termination rights depend strictly on the express terms of the contract and the nature of any default. Avoid vague phrases like 'reasonable notice' and define exact written timelines. Where a party commits a default, agreements commonly provide a 14 to 30-day 'Notice to Cure' before termination, though whether a cure period applies depends on the contract terms and whether the breach is fundamental under Sections 39 and 73 of the Contract Act 1872. Always review early exit penalties and security deposit forfeiture terms.",
       "legal_basis": "Contract Act 1872 (Sections 39, 73, 75) & Specific Relief Act 1877"
     },
     {
       "question": "Who is responsible for taxes or withholding on this payment?",
-      "summary": "Every business is responsible for its own income tax. However, corporate payers are legally mandated by FBR to withhold tax at source (e.g. 8-11% on services, scaled rates on rent). Contracts should state whether amounts are inclusive or exclusive of taxes.",
-      "legal_basis": "Income Tax Ordinance 2001 (Sections 152, 153, 155) & Provincial Sales Tax on Services Acts"
+      "summary": "Every entity is responsible for its own net income tax liability. However, where a payer qualifies as a 'prescribed person' (which includes corporate companies, registered partnerships/AOPs, and individuals whose turnover exceeds statutory thresholds under Section 153), they are legally obligated to deduct advance withholding tax at source before making payment. Withholding rates on goods, services, and contracts vary depending on the transaction type, recipient classification, and Active Taxpayer List (ATL) status under the First and Tenth Schedules of the Income Tax Ordinance 2001. Contracts must explicitly state whether prices are 'inclusive' or 'exclusive' of applicable withholding and provincial sales taxes.",
+      "legal_basis": "Income Tax Ordinance 2001 (Sections 152, 153, 155, Tenth Schedule) & Provincial Sales Tax on Services Acts"
     },
     {
       "question": "What records should my business maintain for tax purposes?",
-      "summary": "Under Section 174, maintain serially numbered sales invoices, vendor receipts, utility bills, business bank account statements, and salary payment CPRs for a minimum of 6 years.",
-      "legal_basis": "Income Tax Ordinance 2001, Section 174 & Income Tax Rules 2002 (Rule 29)"
+      "summary": "Under Section 174 of the Income Tax Ordinance 2001 and Rule 29 of the Income Tax Rules 2002, businesses must maintain complete books of accounts, including serially numbered sales invoices, purchase bills, payment vouchers, bank account statements, and salary withholding records. These records must be retained for a minimum of 6 years from the end of the relevant tax year to substantiate deductions during audit or assessment.",
+      "legal_basis": "Income Tax Ordinance 2001 (Section 174) & Income Tax Rules 2002 (Rule 29)"
     },
     {
       "question": "What registrations or compliance steps apply to my business?",
-      "summary": "A 4-tier structure: (1) FBR Iris NTN, (2) Entity registration (SECP or Registrar of Firms), (3) Provincial Sales Tax on Services (PRA/SRB), and (4) Sectoral licensing (PSEB for IT exporters to claim 0.25% tax rate).",
-      "legal_basis": "FBR Iris Guidelines / SECP Companies Act 2017 / PSEB Policy Guidelines"
+      "summary": "Business compliance follows a 4-tier structure: (1) Federal Tax registration on FBR Iris for an NTN, (2) Entity legal formation (Sole Proprietorship, Form C with Registrar of Firms for AOPs, or SECP incorporation for companies under Companies Act 2017), (3) Provincial Sales Tax on Services registration (PRA in Punjab, SRB in Sindh, KPRA in KPK) if rendering services, and (4) Sectoral registration (such as PSEB for IT exporters seeking concessionary tax treatment under Section 154A, subject to export remittance realization and current Finance Act conditions).",
+      "legal_basis": "FBR Iris Guidelines / SECP Companies Act 2017 / Income Tax Ordinance 2001 (Section 154A) / PSEB Policy"
     }
   ]
 }

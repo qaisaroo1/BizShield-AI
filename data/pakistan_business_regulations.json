@@ -12,50 +12,50 @@
       "name": "Federal Board of Revenue",
       "primary_statute": "Income Tax Ordinance 2001",
       "portal": "Iris (iris.fbr.gov.pk)",
-      "mandate": "National Tax Number (NTN) registration, Active Taxpayer List (ATL), federal sales tax on goods, and withholding tax management."
+      "mandate": "National Tax Number (NTN) registration, Active Taxpayer List (ATL) management, federal sales tax on goods, and withholding tax compliance."
     },
     {
       "code": "PSEB",
       "name": "Pakistan Software Export Board",
       "primary_statute": "Income Tax Ordinance 2001 (Section 154A) & PSEB Policy Guidelines",
       "portal": "pseb.org.pk",
-      "mandate": "Facilitation of IT & ITeS exporters, IT freelancer registration, and certification for 0.25% concessionary export tax credit."
+      "mandate": "Registration of IT & ITeS exporters and freelancers. Eligible registered exporters who realize export proceeds in foreign exchange through formal banking channels may avail concessionary tax treatment under Section 154A, subject to conditions and rates specified in the applicable Finance Act."
     },
     {
       "code": "PRA",
       "name": "Punjab Revenue Authority",
       "primary_statute": "Punjab Sales Tax on Services Act 2012",
       "portal": "pra.punjab.gov.pk",
-      "mandate": "Levy and collection of provincial sales tax on services (16% standard, reduced rates on IT) rendered in Punjab."
+      "mandate": "Levy and collection of provincial sales tax on services rendered in Punjab (standard rate 16%, with specific or reduced rates on designated IT/ITeS services as updated in provincial schedules)."
     },
     {
       "code": "SRB",
       "name": "Sindh Revenue Board",
       "primary_statute": "Sindh Sales Tax on Services Act 2011",
       "portal": "srb.gos.pk",
-      "mandate": "Levy and collection of provincial sales tax on services (13% standard, 3% on IT) rendered in Sindh."
+      "mandate": "Levy and collection of provincial sales tax on services rendered in Sindh (standard rate 13%, with reduced/concessionary rates on IT services as updated in provincial schedules)."
     }
   ],
   "key_compliance_deadlines": [
     {
       "event": "Annual Income Tax Return (Individuals & AOPs)",
-      "statutory_deadline": "September 30 each year",
-      "consequence_of_delay": "Removal from Active Taxpayer List (ATL), leading to 100% higher withholding tax deductions on banking and business transactions."
+      "statutory_deadline": "September 30 each year (unless formally extended by FBR)",
+      "consequence_of_delay": "Delay past statutory deadline leads to exclusion from the Active Taxpayer List (ATL) and higher withholding tax deductions (typically 100% higher under Tenth Schedule). FBR allows restoration to ATL upon filing the return and paying the applicable surcharge under Section 182A, with the ATL register updated on a daily basis."
     },
     {
       "event": "Annual Income Tax Return (Companies / Pvt Ltd)",
-      "statutory_deadline": "December 31 each year (for tax year ending June 30)",
-      "consequence_of_delay": "Financial penalties under Section 182 and suspension of tax certificates."
+      "statutory_deadline": "December 31 each year (for tax year ending June 30, unless extended)",
+      "consequence_of_delay": "Statutory default penalties under Section 182, exclusion from ATL, and potential loss of tax concessions until return is filed and applicable surcharge is paid."
     },
     {
-      "event": "Monthly Withholding Tax Statement",
-      "statutory_deadline": "15th of every succeeding month",
-      "consequence_of_delay": "Penalties for non-filing of withholding tax statements under Section 165."
+      "event": "Withholding Tax Statements (Section 165)",
+      "statutory_deadline": "As prescribed by FBR rules / applicable Finance Act (e.g. quarterly, biannual, or monthly depending on taxpayer category; verify current Iris schedule)",
+      "consequence_of_delay": "Penalties under Section 182 for non-filing or late submission of withholding statements under Section 165."
     },
     {
       "event": "Mandatory Record Retention",
-      "statutory_deadline": "Minimum 6 years from end of tax year",
-      "consequence_of_delay": "Disallowance of business expense deductions under audit (Section 174)."
+      "statutory_deadline": "Minimum 6 years from the end of the relevant tax year (Section 174(3))",
+      "consequence_of_delay": "Under Section 174, failure to maintain and produce accounts/records upon notice may trigger default penalties under Section 182, best-judgment assessment by the Commissioner under Section 121, and potential disallowance of unsubstantiated business expense claims during audit."
     }
   ]
 }

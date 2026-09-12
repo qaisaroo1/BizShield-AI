@@ -125,6 +125,11 @@ STRICT TONE & SIMPLICITY RULES (CRITICAL):
    - Sentence 2: Exactly how does this hurt your pocket or trap your business?
 3. In "suggested_revision", give simple, clean wording they can copy and paste.
 4. Provide a 3-5 bullet point summary in everyday words.
+5. DISTINGUISH COMMERCIAL RISKS VS STATUTORY VIOLATIONS:
+   - Do NOT label a term as 'illegal' or 'unlawful' unless it directly violates a statutory provision (e.g. Contract Act, 1872).
+   - If a clause is one-sided, ambiguous, or lacks fair protections, categorize it as 'Commercial Risk', 'Ambiguous Clause', or 'Missing Protection'.
+   - Treat timelines like 30, 60, or 90-day notices and rent escalation percentages (e.g. 8-10%) as recommended commercial negotiation benchmarks rather than universal legal mandates.
+   - Reference withholding tax sections (e.g. Section 153, Section 155) only after identifying the relevant transaction type and whether a party is a prescribed withholding agent.
 
 Return strictly valid JSON adhering to this exact schema:
 {{
@@ -194,13 +199,13 @@ Return strictly valid JSON adhering to this exact schema:
                 "You are committing to pay PKR 150,000 per month for Office No. 12, Lahore for 2 years (PKR 3.6 Million total).",
                 "⚠️ Notice Period is dangerously vague: 'Reasonable notice' allows either party to argue about eviction deadlines.",
                 "⚠️ Maintenance duties are broad: As written, you could be forced to pay for major structural building damages.",
-                "⚠️ Tax Treatment is missing: Corporate tenants in Pakistan must withhold tax under Section 155; this contract does not state if rent is inclusive or exclusive of tax.",
+                "⚠️ Tax Treatment is missing: If the tenant is a prescribed withholding agent under FBR rules, advance tax withholding under Section 155 applies; this contract should state whether rent is inclusive or exclusive of tax.",
                 "✅ Security deposit (PKR 300,000) is explicitly designated as refundable."
             ],
             red_flags=findings,
             missing_protections=[
-                "Tax withholding clause (Section 155 FBR withholding compliance).",
-                "Renewal rent escalation cap (e.g. maximum 8-10% increment).",
+                "Tax withholding allocation clause (clarifying Section 155 compliance if tenant is a prescribed agent).",
+                "Renewal rent escalation cap (e.g. commercial negotiation benchmark of 8-10% increment).",
                 "Force majeure clause (protection against building damage, municipal closure, or natural disasters).",
                 "Landlord structural maintenance guarantee."
             ],

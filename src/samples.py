@@ -72,31 +72,31 @@ Date: 1 October 2026
 SAMPLE_1_EXPECTED_FINDINGS = [
     {
         "clause": "Clause 5: Termination",
-        "issue": "Notice period is vague ('reasonable notice'). In Pakistan commercial leases, an exact timeline (e.g. 60 or 90 days in writing) must be defined.",
+        "issue": "Notice period is vague ('reasonable notice'). In Pakistani commercial practice, an exact notice timeline (e.g. 60 or 90 days in writing as a negotiated commercial benchmark) should be defined, subject to provincial tenancy laws.",
         "risk": "High",
-        "category": "Vague Termination Rights",
-        "action": "Specify exact written notice period (e.g. 60 days) and specify conditions under which landlord can terminate."
+        "category": "Vague Termination Rights (Commercial Risk)",
+        "action": "Specify an exact written notice period (e.g. 60 days as a standard commercial practice) and define explicit grounds for termination."
     },
     {
         "clause": "Clause 6: Maintenance",
-        "issue": "Maintenance responsibility is overly broad. Standard law distinguishes structural repairs (roof, exterior walls - landlord) from internal operational repairs (tenant).",
+        "issue": "Maintenance responsibility is overly broad. Standard commercial practice distinguishes structural repairs (roof, exterior walls - landlord) from internal operational repairs (tenant).",
         "risk": "Medium",
-        "category": "Broad / Unclear Obligations",
+        "category": "Broad / Unclear Obligations (Ambiguous Clause)",
         "action": "Explicitly state landlord is responsible for structural repairs, plumbing mainlines, and major electrical faults."
     },
     {
         "clause": "Clause 12: Late Payment",
-        "issue": "Consequences of late payment are vague ('appropriate action'). Lacks grace period and specific late payment fee/percentage.",
+        "issue": "Consequences of late payment are vague ('appropriate action'). Lacks a clear grace period and agreed late payment mechanism.",
         "risk": "Medium",
-        "category": "Unclear Payment Terms",
-        "action": "Define a 7-10 day grace period followed by a specific reasonable late fee, preventing arbitrary eviction."
+        "category": "Unclear Payment Terms (Commercial Risk)",
+        "action": "Define a 7-10 day grace period followed by a specific reasonable late fee to avoid arbitrary dispute."
     },
     {
         "clause": "Clause 14: Renewal",
-        "issue": "Missing renewal mechanism, notice window, and rent escalation cap (e.g., maximum 10% rent increment upon renewal).",
+        "issue": "Missing renewal mechanism, notice window, and rent escalation formula (e.g., maximum 8-10% rent increment upon renewal as a commercial benchmark).",
         "risk": "High",
-        "category": "Missing Protections",
-        "action": "Add clause allowing tenant option to renew with 60 days notice prior to expiry, with rent increase capped at 8-10%."
+        "category": "Missing Protections (Commercial Risk)",
+        "action": "Add clause allowing tenant option to renew with 60 days notice prior to expiry, with rent increase capped at a negotiated commercial benchmark (e.g. 8-10%)."
     },
     {
         "clause": "Clause 17: Notices",
@@ -114,10 +114,10 @@ SAMPLE_1_EXPECTED_FINDINGS = [
     },
     {
         "clause": "Tax Considerations (Missing Clause)",
-        "issue": "No mention of Advance Income Tax withholding under Section 155 of the Income Tax Ordinance, or provincial sales tax on rent.",
+        "issue": "No mention of Advance Income Tax withholding under Section 155 of the Income Tax Ordinance (if tenant is a prescribed agent), or provincial sales tax on rent.",
         "risk": "High",
-        "category": "Tax / Withholding Responsibility Missing",
-        "action": "Add explicit clause clarifying whether PKR 150,000 rent is gross or net of applicable withholding tax (WHT) deductible by corporate tenants."
+        "category": "Tax / Withholding Responsibility Missing (Compliance Risk)",
+        "action": "Add explicit clause clarifying whether PKR 150,000 rent is gross or net of applicable withholding tax (Section 155), deductible if the tenant is a prescribed withholding agent under current FBR rules."
     }
 ]
 
