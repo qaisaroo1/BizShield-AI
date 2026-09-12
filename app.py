@@ -253,11 +253,11 @@ with tab_scanner:
     st.markdown("Upload any business agreement or choose a sample. The **Privacy Shield** will automatically redact confidential personal/company details, and the AI will highlight unfair clauses, missing protections, and payment traps in simple English.")
 
     # 1-Click Sample Selectors
-    st.markdown("**⚡ Quick Test with Hackathon Samples:**")
+    st.markdown("**📄 Try an Example Agreement:**")
     col_s1, col_s2, col_clear = st.columns([1.5, 1.5, 1])
 
     with col_s1:
-        if st.button("🏢 Load Sample 1: Commercial Lease Agreement", use_container_width=True):
+        if st.button("🏢 Commercial Lease Agreement", use_container_width=True):
             st.session_state.current_contract_text = SAMPLE_1_LEASE_TEXT
             st.session_state.current_contract_title = SAMPLE_1_LEASE_TITLE
             st.session_state.analysis_report = None
@@ -267,7 +267,7 @@ with tab_scanner:
             st.rerun()
 
     with col_s2:
-        if st.button("💻 Load Sample 2: Vendor & Service Agreement", use_container_width=True):
+        if st.button("💻 Vendor & Service Agreement", use_container_width=True):
             st.session_state.current_contract_text = SAMPLE_2_VENDOR_TEXT
             st.session_state.current_contract_title = SAMPLE_2_VENDOR_TITLE
             st.session_state.analysis_report = None
