@@ -12,6 +12,16 @@ load_dotenv(BASE_DIR / ".env")
 
 # API Keys & Models
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+
+# Fallback to Streamlit secrets (for Streamlit Community Cloud)
+if not GEMINI_API_KEY:
+    try:
+        import streamlit as st
+        if hasattr(st, "secrets") and "GEMINI_API_KEY" in st.secrets:
+            GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        pass
+
 DEFAULT_MODEL = "gemini-3.6-flash"
 EMBEDDING_MODEL = "gemini-embedding-001"
 
