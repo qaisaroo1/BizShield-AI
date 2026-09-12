@@ -108,17 +108,17 @@ class SmartComplianceEngine:
                 timeline="1 to 2 Weeks"
             ).to_dict())
 
-        # 3. Industry-Specific: IT & Software Exports
-        if is_exporter or "IT" in industry:
+        # 3. Sector & Export-Specific: IT & Software Exports
+        if is_exporter:
             tasks.append(ComplianceTask(
                 task_id="pseb_reg",
                 title="Register with Pakistan Software Export Board (PSEB)",
                 category="Export Concessions & Licensing",
                 authority="PSEB / Ministry of IT & Telecom",
                 priority="High",
-                description="Register as an IT freelancer or IT company with PSEB to qualify for concessionary 0.25% final income tax tax-credit on export remittances under Section 65F/154A.",
-                official_source="Income Tax Ordinance, Section 154A & PSEB Policy",
-                timeline="1 Week"
+                description="Register as an IT exporter or tech freelancer with PSEB to qualify for concessionary export tax regimes under Section 154A of the Income Tax Ordinance 2001, subject to realization of export remittances through formal banking channels, tax return filing, and applicable Finance Act rules.",
+                official_source="Income Tax Ordinance 2001, Section 154A & PSEB Export Guidelines",
+                timeline="1 to 2 Weeks"
             ).to_dict())
 
         # 4. Provincial Sales Tax on Services
@@ -128,8 +128,8 @@ class SmartComplianceEngine:
             category="Indirect Taxation",
             authority="Provincial Revenue Authority (e.g. PRA in Punjab, SRB in Sindh)",
             priority="High",
-            description="If providing taxable services (consulting, advertising, software maintenance, technical support), register with your provincial revenue board for sales tax on services (usually 13% - 16%).",
-            official_source="Punjab Sales Tax on Services Act 2012 / Sindh Sales Tax on Services Act 2011",
+            description="If providing taxable services (such as IT-enabled services, software maintenance, consulting, or technical support), register with your relevant provincial revenue board (PRA, SRB, KPRA, or BRA). Applicable sales tax rates vary by province and specific service classification under prevailing provincial schedules.",
+            official_source="Provincial Sales Tax on Services Acts (Punjab, Sindh, KP, Balochistan)",
             timeline="Within 30 Days of starting business"
         ).to_dict())
 

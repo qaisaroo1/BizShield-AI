@@ -51,7 +51,7 @@ class PrivacyShield:
 
         # 5. Physical Addresses & Property Locations
         self.labeled_addr_pattern = re.compile(
-            r"\b((?:Premises|Registered\s*Office|Warehouse|Property|Address|Residential\s*Address|Permanent\s*Address)\s*[:.-]\s*)([^\n\r]+)",
+            r"(?m)^(\s*(?:Premises|Registered\s*Office|Warehouse|Property\s*(?:Address|Location)?|Residential\s*Address|Permanent\s*Address|Address)\s*[:]\s*)([^\n\r]+)",
             re.IGNORECASE
         )
         self.plot_address_pattern = re.compile(
@@ -334,11 +334,27 @@ class PrivacyShield:
             redacted = self.bank_acc_pattern.sub("[REDACTED_ACCOUNT]", redacted)
 
         # 12. Redact Physical Addresses & Property Locations
-        labeled_addrs = self.labeled_addr_pattern.findall(redacted)
-        if labeled_addrs:
-            for prefix, addr in labeled_addrs:
+        def _is_valid_address(addr_str: str) -> bool:
+            a = addr_str.strip()
+            if not a or a.startswith("[REDACTED"):
+                return False
+            # Exclude divider lines (underscores, hyphens, equals)
+            if re.match(r"^[-_=~*#\s]+$", a):
+                return False
+            # Exclude numbered clauses or article titles (e.g. 4. Payment, Clause 5)
+            if re.match(r"^(?:\d+\.|\bClause\b|\bSection\b|\bArticle\b)", a, re.IGNORECASE):
+                return False
+            # Require minimum length and at least one alphabetical word
+            if len(a) < 3 or not re.search(r"[A-Za-z]", a):
+                return False
+            return True
+
+        labeled_matches = list(self.labeled_addr_pattern.finditer(redacted))
+        if labeled_matches:
+            for match in labeled_matches:
+                prefix, addr = match.group(1), match.group(2)
                 addr_clean = addr.strip()
-                if addr_clean and not addr_clean.startswith("[REDACTED"):
+                if _is_valid_address(addr_clean):
                     counts["Physical Addresses & Locations"] += 1
                     preview = f"{addr_clean[:14]}... (Physical Location)" if len(addr_clean) > 14 else addr_clean
                     self.last_audit_log.append({
@@ -348,7 +364,14 @@ class PrivacyShield:
                         "ai_token": "[REDACTED_ADDRESS]",
                         "status": "Hidden from AI (100% Protected)"
                     })
-            redacted = self.labeled_addr_pattern.sub(r"\1[REDACTED_ADDRESS]", redacted)
+
+            def _replace_labeled_addr(m):
+                prefix, addr = m.group(1), m.group(2)
+                if _is_valid_address(addr):
+                    return f"{prefix}[REDACTED_ADDRESS]"
+                return m.group(0)
+
+            redacted = self.labeled_addr_pattern.sub(_replace_labeled_addr, redacted)
 
         plot_addrs = self.plot_address_pattern.findall(redacted)
         if plot_addrs:

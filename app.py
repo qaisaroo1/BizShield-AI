@@ -211,8 +211,21 @@ with st.sidebar:
     st.markdown("---")
 
     st.markdown("### ⚙️ Privacy & AI Settings")
-    enable_privacy = st.toggle("🛡️ Privacy Shield (Auto-Anonymizer)", value=True, help="Automatically redacts CNIC, phone numbers, bank details, and party names before sending text to the AI engine.")
-    mask_money = st.checkbox("Mask Exact Financial Amounts", value=False, help="Replaces exact PKR figures with [CONFIDENTIAL_AMOUNT].")
+    if "enable_privacy_pref" not in st.session_state:
+        st.session_state.enable_privacy_pref = True
+    if "mask_money_pref" not in st.session_state:
+        st.session_state.mask_money_pref = False
+
+    enable_privacy = st.toggle(
+        "🛡️ Privacy Shield (Auto-Anonymizer)",
+        key="enable_privacy_pref",
+        help="Automatically redacts CNIC, phone numbers, bank details, and party names before sending text to the AI engine."
+    )
+    mask_money = st.checkbox(
+        "Mask Exact Financial Amounts",
+        key="mask_money_pref",
+        help="Replaces exact PKR figures with [CONFIDENTIAL_AMOUNT]."
+    )
 
     st.markdown("---")
     st.markdown("### 🇵🇰 Verified Legal Grounding")
@@ -749,8 +762,8 @@ with tab_checklist:
         )
 
     with col_prof3:
-        has_staff = st.checkbox("Have Employees / Staff?", value=False, help="Requires payroll withholding tax and EOBI compliance.")
-        is_exporter = st.checkbox("Software / Services Exporter?", value=True, help="Qualifies for 0.25% PSEB concessionary tax rate.")
+        has_staff = st.checkbox("Have Employees / Staff?", value=False, key="chk_has_staff", help="Requires payroll withholding tax and EOBI compliance.")
+        is_exporter = st.checkbox("Software / Services Exporter?", value=True, key="chk_is_exporter", help="Eligible for concessionary IT/ITeS export tax regimes under Section 154A.")
 
     # Generate Checklist
     checklist_tasks = st.session_state.compliance_engine.generate_checklist(

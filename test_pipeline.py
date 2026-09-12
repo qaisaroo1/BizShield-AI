@@ -63,7 +63,13 @@ Monthly Rent: PKR 150,000
     redacted_custom, counts_custom = shield.anonymize(custom_text, custom_redactions=["Project Falcon", "Tariq Aziz"])
     assert "[CONFIDENTIAL]" in redacted_custom, "Custom word was not redacted"
     assert counts_custom["Custom Private Details"] == 2, "Custom count mismatch"
-    print("  ✅ Privacy Shield verified: Automatic PII + User-Specified Custom Redactions both working 100%!")
+
+    # Verify that normal contract clauses and divider lines are NOT over-redacted
+    red_lease, lease_counts = shield.anonymize(SAMPLE_1_LEASE_TEXT)
+    assert "4. Payment" in red_lease, "Clause '4. Payment' was incorrectly redacted as an address"
+    assert "________________________________________" in red_lease, "Separator line was incorrectly redacted"
+    assert lease_counts["Physical Addresses & Locations"] == 1, "Expected exactly 1 address in Sample 1"
+    print("  ✅ Privacy Shield verified: Automatic PII, Precise Address Masking (zero clause over-redaction), and Custom Redactions working 100%!")
 
     # 2. Test Contract Scanner on Sample 1 (Commercial Lease)
     print("\n[2/5] Testing Contract Scanner on Sample 1 (Commercial Lease)...")
@@ -92,8 +98,12 @@ Monthly Rent: PKR 150,000
     print("\n[4/5] Testing Compliance Engine & Legal Q&A Advisor...")
     engine = SmartComplianceEngine()
     tasks_sp = engine.generate_checklist(entity_type="Sole Proprietorship / Freelancer", is_exporter=True)
-    print(f"  Sole Proprietorship Tasks: {len(tasks_sp)} compliance items generated.")
-    assert len(tasks_sp) >= 5, "Expected at least 5 compliance items"
+    tasks_sp_no_exp = engine.generate_checklist(entity_type="Sole Proprietorship / Freelancer", is_exporter=False)
+    print(f"  Sole Proprietorship Tasks: {len(tasks_sp)} items (Exporter) vs {len(tasks_sp_no_exp)} items (Non-Exporter).")
+    assert len(tasks_sp) == 6, f"Expected 6 tasks for exporter, got {len(tasks_sp)}"
+    assert len(tasks_sp_no_exp) == 5, f"Expected 5 tasks for non-exporter, got {len(tasks_sp_no_exp)}"
+    assert any(t["task_id"] == "pseb_reg" for t in tasks_sp), "PSEB should be present for exporters"
+    assert not any(t["task_id"] == "pseb_reg" for t in tasks_sp_no_exp), "PSEB should NOT be present for non-exporters"
 
     advisor = LegalAdvisorAgent()
     sample_q = SAMPLE_QA_QUESTIONS[0]
