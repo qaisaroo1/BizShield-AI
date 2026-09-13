@@ -5,49 +5,56 @@
       "clause": "Clause 5: Termination",
       "expected_issue": "Termination clause — 'reasonable notice' clearly define nahi hai.",
       "risk_level": "High",
-      "suggested_action": "Define an agreed written notice period (such as 60 or 90 days as a negotiated commercial benchmark) and specify conditions under which either party can terminate."
+      "suggested_action": "Define an agreed written notice period (such as 60 or 90 days as a negotiated commercial benchmark) and specify conditions under which either party can terminate.",
+      "legal_basis": "Contract Act 1872 (Sections 39, 73) & Provincial Rented Premises Legislation"
     },
     {
       "finding_number": 2,
       "clause": "Clause 6: Maintenance",
       "expected_issue": "Maintenance clause — responsibility broad/vague hai; structural vs operational duties ki clear distinction nahi.",
       "risk_level": "Medium",
-      "suggested_action": "Clarify that landlord maintains structural integrity and external premises, while tenant handles internal minor operational upkeep."
+      "suggested_action": "Clarify that landlord maintains structural integrity and external premises, while tenant handles internal minor operational upkeep.",
+      "legal_basis": "Provincial Rented Premises Legislation (Punjab 2009 / Sindh 1979) – Statutory Maintenance Allocation"
     },
     {
       "finding_number": 3,
       "clause": "Clause 12: Late Payment",
       "expected_issue": "Late payment — late fee/penalty ya exact consequences specified nahi.",
       "risk_level": "Medium",
-      "suggested_action": "Define a clear grace period and applicable consequences to avoid arbitrary dispute or undefined penalties."
+      "suggested_action": "Define a clear grace period and applicable consequences to avoid arbitrary dispute or undefined penalties.",
+      "legal_basis": "Contract Act 1872 (Section 74 - Liquidated damages & penalty limits)"
     },
     {
       "finding_number": 4,
       "clause": "Clause 14: Renewal",
       "expected_issue": "Renewal — renewal terms, notice period aur revised rent ka mechanism missing hai.",
       "risk_level": "High",
-      "suggested_action": "Add clause defining an agreed/negotiated renewal mechanism and clear notice window prior to lease expiry."
+      "suggested_action": "Add clause defining an agreed/negotiated renewal mechanism and clear notice window prior to lease expiry.",
+      "legal_basis": "Provincial Rented Premises Legislation & Contract Act 1872"
     },
     {
       "finding_number": 5,
       "clause": "Clause 17: Notices",
       "expected_issue": "Notices — exact notice method/address/timeframe clearly specified nahi.",
       "risk_level": "Low",
-      "suggested_action": "State that notices must be served via registered courier or official designated business email addresses."
+      "suggested_action": "State that notices must be served via registered courier or official designated business email addresses.",
+      "legal_basis": "Contract Act 1872 & Provincial Tenancy Rules"
     },
     {
       "finding_number": 6,
       "clause": "Clause 11: Insurance",
       "expected_issue": "Insurance — required insurance coverage/type/party responsibility clearly defined nahi.",
       "risk_level": "Low",
-      "suggested_action": "Clarify that building fire/structure insurance rests with landlord; internal business contents rest with tenant."
+      "suggested_action": "Clarify that building fire/structure insurance rests with landlord; internal business contents rest with tenant.",
+      "legal_basis": "Commercial Practice & Property Law Principles"
     },
     {
       "finding_number": 7,
       "clause": "Tax Considerations (Missing Clause)",
       "expected_issue": "Tax considerations — agreement mein applicable withholding tax treatment ka specific handling mention nahi hai.",
       "risk_level": "High",
-      "suggested_action": "Add explicit clause clarifying whether the agreed rent is gross or net of statutory withholding deductions where the payer is a prescribed withholding agent under prevailing tax law."
+      "suggested_action": "Add explicit clause clarifying whether the agreed rent is gross or net of statutory withholding deductions where the payer is a prescribed withholding agent under prevailing tax law.",
+      "legal_basis": "Income Tax Ordinance 2001 (Section 155 - Deduction of Tax on Rent)"
     }
   ],
   "sample_2_vendor_agreement": [
@@ -56,42 +63,48 @@
       "clause": "Clause 1: Scope of Services",
       "expected_issue": "Missing concrete deliverables, milestones, and acceptance criteria.",
       "risk_level": "High",
-      "suggested_action": "Attach a detailed Statement of Work (SOW) defining milestones and sign-off criteria."
+      "suggested_action": "Attach a detailed Statement of Work (SOW) defining milestones and sign-off criteria.",
+      "legal_basis": "Contract Act 1872 (Section 29 - Certainty of terms)"
     },
     {
       "finding_number": 2,
       "clause": "Clause 3: Fees and Payment",
       "expected_issue": "Vendor has unilateral right to revise charges whenever additional work or circumstances require it.",
       "risk_level": "High",
-      "suggested_action": "Require a formal written change-order signed by both parties before any additional fee can be charged."
+      "suggested_action": "Require a formal written change-order signed by both parties before any additional fee can be charged.",
+      "legal_basis": "Contract Act 1872 & ITO 2001 (Section 153 - Prescribed Withholding Requirements)"
     },
     {
       "finding_number": 3,
       "clause": "Clause 4: Delivery Timeline",
       "expected_issue": "Vague delivery timeline ('reasonable efforts within an appropriate timeframe').",
       "risk_level": "High",
-      "suggested_action": "Specify concrete milestone dates and define what constitutes an excusable vs unexcusable delay."
+      "suggested_action": "Specify concrete milestone dates and define what constitutes an excusable vs unexcusable delay.",
+      "legal_basis": "Contract Act 1872 (Section 55 - Time as essence of contract)"
     },
     {
       "finding_number": 4,
       "clause": "Clause 6: Intellectual Property",
       "expected_issue": "Client only receives right to use materials; ownership of custom deliverables remains unallocated.",
       "risk_level": "High",
-      "suggested_action": "As a contractual option, specify that bespoke source code, designs, and deliverables are assigned to Client upon full payment, with vendor retaining pre-existing tools."
+      "suggested_action": "As a contractual option, specify that bespoke source code, designs, and deliverables are assigned to Client upon full payment, with vendor retaining pre-existing tools.",
+      "legal_basis": "Copyright Ordinance 1962 (Section 13) & IPO-Pakistan – Ownership and assignment of bespoke deliverables"
     },
     {
       "finding_number": 5,
       "clause": "Clause 8: Liability",
       "expected_issue": "Liability capped at an ambiguous 'amount considered reasonable in the circumstances'.",
       "risk_level": "Medium",
-      "suggested_action": "Define an explicit agreed liability cap and clear exclusions/carve-outs (such as gross negligence or confidentiality breach)."
+      "suggested_action": "Define an explicit agreed liability cap and clear exclusions/carve-outs (such as gross negligence or confidentiality breach).",
+      "legal_basis": "Contract Act 1872 (Sections 73 & 74 - Limitation of damages)"
     },
     {
       "finding_number": 6,
       "clause": "Clause 10: Subcontracting",
       "expected_issue": "Vendor can subcontract work to third parties without client prior notice or consent.",
       "risk_level": "Medium",
-      "suggested_action": "Require prior written consent from Client before subcontracting core services."
+      "suggested_action": "Require prior written consent from Client before subcontracting core services.",
+      "legal_basis": "Contract Act 1872 (Sections 40 & 41 - Performance of contracts)"
     }
   ]
 }

@@ -75,49 +75,56 @@ SAMPLE_1_EXPECTED_FINDINGS = [
         "issue": "Notice period is unquantified ('reasonable notice'). In commercial practice, parties typically define an agreed written timeline (such as 60 or 90 days as a negotiated benchmark) rather than relying on ambiguous terms, subject to applicable provincial tenancy laws.",
         "risk": "High",
         "category": "Vague Termination Rights (Commercial Risk)",
-        "action": "Specify an agreed written notice period (e.g. 60 or 90 days as a negotiated commercial benchmark) and define explicit grounds for termination."
+        "action": "Specify an agreed written notice period (e.g. 60 or 90 days as a negotiated commercial benchmark) and define explicit grounds for termination.",
+        "legal_basis": "Contract Act 1872 (Sections 39, 73) & Provincial Rented Premises Legislation (Termination notice & grounds)"
     },
     {
         "clause": "Clause 6: Maintenance",
         "issue": "Maintenance responsibility is overly broad. In balanced commercial leases, structural repairs (roof, exterior walls, main plumbing) are typically allocated to the landlord, while routine internal upkeep is handled by the tenant.",
         "risk": "Medium",
         "category": "Broad / Unclear Obligations (Ambiguous Clause)",
-        "action": "Clarify in the clause that landlord maintains structural integrity and external premises, while tenant handles internal operational upkeep."
+        "action": "Clarify in the clause that landlord maintains structural integrity and external premises, while tenant handles internal operational upkeep.",
+        "legal_basis": "Provincial Rented Premises Legislation (e.g. Punjab Rented Premises Act 2009 / Sindh 1979) – Statutory Maintenance Allocation"
     },
     {
         "clause": "Clause 12: Late Payment",
         "issue": "Consequences of late payment are vague ('appropriate action'). Lacks a clear grace period and agreed consequences.",
         "risk": "Medium",
         "category": "Unclear Payment Terms (Potential Risk)",
-        "action": "Define a clear grace period and applicable consequences to avoid arbitrary dispute."
+        "action": "Define a clear grace period and applicable consequences to avoid arbitrary dispute.",
+        "legal_basis": "Contract Act 1872 (Section 74 - Liquidated damages & penalty limits)"
     },
     {
         "clause": "Clause 14: Renewal",
         "issue": "Missing renewal mechanism, notice window, and agreed rent revision mechanism.",
         "risk": "High",
         "category": "Missing Protections (Potential Risk)",
-        "action": "Add clause defining an agreed/negotiated renewal mechanism and clear notice window prior to lease expiry."
+        "action": "Add clause defining an agreed/negotiated renewal mechanism and clear notice window prior to lease expiry.",
+        "legal_basis": "Provincial Rented Premises Legislation & Contract Act 1872 (Mutual consent & notice mechanism)"
     },
     {
         "clause": "Clause 17: Notices",
         "issue": "Method of notice is unspecified ('appropriate written method'). Needs exact physical addresses, registered courier, or official email.",
         "risk": "Low",
         "category": "Procedural Ambiguity",
-        "action": "State that notices must be served via registered courier or official designated business email addresses."
+        "action": "State that notices must be served via registered courier or official designated business email addresses.",
+        "legal_basis": "Contract Act 1872 & Provincial Tenancy Rules (Service of notice & proof of receipt)"
     },
     {
         "clause": "Clause 11: Insurance",
         "issue": "Property vs. business insurance is conflated. Landlord should insure the physical building structure, while tenant covers internal equipment/business content.",
         "risk": "Low",
         "category": "Unclear Allocation of Risk",
-        "action": "Clarify that building fire/structure insurance rests with landlord; internal contents rest with tenant."
+        "action": "Clarify that building fire/structure insurance rests with landlord; internal contents rest with tenant.",
+        "legal_basis": "General Commercial Practice & Property Law Principles (Allocation of structural vs internal business risk)"
     },
     {
         "clause": "Tax Considerations (Missing Clause)",
         "issue": "The agreement does not specify whether rent payments are inclusive or exclusive of applicable withholding tax deductions where the tenant qualifies as a prescribed withholding agent under Section 155 of the Income Tax Ordinance 2001.",
         "risk": "High",
         "category": "Tax / Withholding Responsibility Missing (Potential Risk)",
-        "action": "Add an explicit clause clarifying whether the agreed rent is gross or net of statutory withholding deductions where the payer is a prescribed withholding agent under applicable law."
+        "action": "Add an explicit clause clarifying whether the agreed rent is gross or net of statutory withholding deductions where the payer is a prescribed withholding agent under applicable law.",
+        "legal_basis": "Income Tax Ordinance 2001 (Section 155 - Deduction of Tax on Rent for Prescribed Withholding Agents)"
     }
 ]
 
@@ -203,42 +210,48 @@ SAMPLE_2_EXPECTED_FINDINGS = [
         "issue": "Scope is vague ('features will be discussed'). Lacks defined deliverables, specifications, and client acceptance milestones.",
         "risk": "High",
         "category": "Missing Scope / Deliverables",
-        "action": "Attach a concrete Statement of Work (SOW) with exact deliverables and milestone sign-off criteria."
+        "action": "Attach a concrete Statement of Work (SOW) with exact deliverables and milestone sign-off criteria.",
+        "legal_basis": "Contract Act 1872 (Section 29 - Certainty of terms and contractual obligations)"
     },
     {
         "clause": "Clause 3: Fees & Payment",
         "issue": "Vendor has unilateral right to revise charges ('if additional work or circumstances require it'). Highly risky for client budget.",
         "risk": "High",
         "category": "Unilateral Price/Fee Changes",
-        "action": "Require a formal written change-order signed by both parties before any additional fee can be charged."
+        "action": "Require a formal written change-order signed by both parties before any additional fee can be charged.",
+        "legal_basis": "Contract Act 1872 & Income Tax Ordinance 2001 (Section 153 - Prescribed Withholding Requirements)"
     },
     {
         "clause": "Clause 4: Delivery Timeline",
         "issue": "Delivery timeline is vague ('reasonable efforts within an appropriate timeframe'). Lacks fixed launch date.",
         "risk": "High",
         "category": "Vague Delivery Schedule",
-        "action": "Specify concrete milestone dates and define what constitutes an excusable vs unexcusable delay."
+        "action": "Specify concrete milestone dates and define what constitutes an excusable vs unexcusable delay.",
+        "legal_basis": "Contract Act 1872 (Section 55 - Time as essence of contract)"
     },
     {
         "clause": "Clause 6: Intellectual Property",
         "issue": "Client is only granted right to 'use' materials for business purposes, leaving underlying ownership of custom deliverables unallocated.",
         "risk": "High",
         "category": "Unclear IP Ownership (Missing Protection)",
-        "action": "As a contractual option, specify that bespoke source code, designs, and deliverables are assigned to Client upon full payment, with vendor retaining pre-existing tools."
+        "action": "As a contractual option, specify that bespoke source code, designs, and deliverables are assigned to Client upon full payment, with vendor retaining pre-existing tools.",
+        "legal_basis": "Copyright Ordinance 1962 (Section 13) & IPO-Pakistan – Ownership of works and assignment of bespoke deliverables"
     },
     {
         "clause": "Clause 8: Liability",
         "issue": "Liability is capped at an ambiguous 'amount considered reasonable in the circumstances'.",
         "risk": "Medium",
         "category": "Unclear Liability Cap (Potential Risk)",
-        "action": "Define an explicit agreed liability cap and clear exclusions/carve-outs (such as gross negligence or confidentiality breach)."
+        "action": "Define an explicit agreed liability cap and clear exclusions/carve-outs (such as gross negligence or confidentiality breach).",
+        "legal_basis": "Contract Act 1872 (Sections 73 & 74 - Enforceability of liability limits & breach compensation)"
     },
     {
         "clause": "Clause 10: Subcontracting",
         "issue": "Vendor can subcontract work to third parties without prior notice or approval from Client.",
         "risk": "Medium",
         "category": "Unclear Subcontracting (Potential Risk)",
-        "action": "Require prior written consent from Client before subcontracting core services, with binding confidentiality on subcontractors."
+        "action": "Require prior written consent from Client before subcontracting core services, with binding confidentiality on subcontractors.",
+        "legal_basis": "Contract Act 1872 (Sections 40 & 41 - Performance of contracts & third-party delegation)"
     }
 ]
 

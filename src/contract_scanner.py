@@ -33,6 +33,7 @@ class RiskFinding(BaseModel):
     risk_level: str = Field(description="High, Medium, or Low")
     problem_explanation: str = Field(description="Clear explanation of why this clause is risky in simple English")
     suggested_revision: str = Field(description="Actionable advice or exact replacement wording to protect the business owner")
+    legal_basis: str = Field(default="", description="Specific Pakistani statutory authority or legal basis governing this issue, e.g. Contract Act 1872 Section 73")
 
 
 class ContractAnalysisReport(BaseModel):
@@ -237,7 +238,8 @@ Return strictly valid JSON adhering to this exact schema:
       "category": "Unlimited Penalty Risk",
       "risk_level": "High",
       "problem_explanation": "The buyer can deduct a penalty for every day you are late, but there is no maximum limit. If your delivery is delayed by even a week, the penalties could wipe out your entire payment and profit.",
-      "suggested_revision": "Add a maximum limit: '...provided that the total late delivery penalty shall never exceed 10% of the Purchase Order value.'"
+      "suggested_revision": "Add a maximum limit: '...provided that the total late delivery penalty shall never exceed 10% of the Purchase Order value.'",
+      "legal_basis": "Contract Act 1872 (Section 74 - Limitation and reasonable compensation standard for late delivery penalties)"
     }}
   ],
   "missing_protections": [
@@ -285,7 +287,8 @@ Return strictly valid JSON adhering to this exact schema:
                 category=f["category"],
                 risk_level=f["risk"],
                 problem_explanation=f["issue"],
-                suggested_revision=f["action"]
+                suggested_revision=f["action"],
+                legal_basis=f.get("legal_basis", "")
             ))
 
         missing_protections = [
@@ -327,7 +330,8 @@ Return strictly valid JSON adhering to this exact schema:
                 category=f["category"],
                 risk_level=f["risk"],
                 problem_explanation=f["issue"],
-                suggested_revision=f["action"]
+                suggested_revision=f["action"],
+                legal_basis=f.get("legal_basis", "")
             ))
 
         missing_protections = [
@@ -371,7 +375,8 @@ Return strictly valid JSON adhering to this exact schema:
                 category="Vague Termination Rights",
                 risk_level="High",
                 problem_explanation="Notice period uses the unquantified phrase 'reasonable notice' instead of an agreed timeframe.",
-                suggested_revision="Specify an agreed notice period (e.g., 30 or 60 days as a negotiated commercial benchmark in writing)."
+                suggested_revision="Specify an agreed notice period (e.g., 30 or 60 days as a negotiated commercial benchmark in writing).",
+                legal_basis="Contract Act 1872 (Sections 39, 73) & Applicable Provincial Tenancy Legislation"
             ))
 
         if "late" in lower and ("appropriate action" in lower or "penalty" not in lower):
@@ -380,7 +385,8 @@ Return strictly valid JSON adhering to this exact schema:
                 category="Unclear Payment Terms",
                 risk_level="Medium",
                 problem_explanation="Consequences of late payment lack a defined grace period and specific penalty amount.",
-                suggested_revision="Add a 7-day grace period followed by a standardized late fee."
+                suggested_revision="Add a 7-day grace period followed by a standardized late fee.",
+                legal_basis="Contract Act 1872 (Section 74 - Liquidated damages & penalty limits)"
             ))
 
         if "tax" not in lower and "withholding" not in lower:
@@ -389,7 +395,8 @@ Return strictly valid JSON adhering to this exact schema:
                 category="Missing Tax Treatment",
                 risk_level="High",
                 problem_explanation="No mention of whether payments are gross or net of applicable withholding tax obligations where the payer qualifies as a prescribed withholding agent under Pakistani law.",
-                suggested_revision="Clarify whether payments are gross or net of statutory withholding deductions where applicable under current law."
+                suggested_revision="Clarify whether payments are gross or net of statutory withholding deductions where applicable under current law.",
+                legal_basis="Income Tax Ordinance 2001 (Section 153 / 155 - Prescribed Withholding Agent Obligations)"
             ))
 
         missing_protections = [

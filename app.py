@@ -666,6 +666,15 @@ with tab_scanner:
                 badge_color = "#EF4444" if flag.risk_level == "High" else "#F59E0B"
                 badge_bg = "rgba(239, 68, 68, 0.2)" if flag.risk_level == "High" else "rgba(245, 158, 11, 0.2)"
                 
+                legal_basis_html = ""
+                if getattr(flag, "legal_basis", None):
+                    legal_basis_html = f"""
+                    <div style='background:rgba(59, 130, 246, 0.08); border:1px solid rgba(59, 130, 246, 0.25); border-radius:6px; padding:8px 12px; margin-bottom:10px;'>
+                        <strong style='color:#2563EB; font-size:0.88rem;'>⚖️ Relevant Statutory Legal Basis:</strong><br>
+                        <span style='color:var(--text-color); font-size:0.86rem;'>{flag.legal_basis}</span>
+                    </div>
+                    """
+
                 with st.container():
                     st.markdown(f"""
                     <div class='{card_class}'>
@@ -676,6 +685,7 @@ with tab_scanner:
                             </span>
                         </div>
                         <p style='color:var(--text-color); opacity:0.9; margin:10px 0 6px 0;'><strong>⚠️ Problem / Trap (In Everyday Words):</strong> {flag.problem_explanation}</p>
+                        {legal_basis_html}
                         <div class='safe-clause-box'>
                             <strong style='color:#10B981;'>💡 Safe Replacement Clause to Propose:</strong><br>
                             <span style='color:var(--text-color); font-family:monospace; font-size:0.88rem;'>{flag.suggested_revision}</span>
@@ -759,7 +769,10 @@ with tab_scanner:
         report_text += "## 💬 Pre-Drafted Negotiation Message\n```\n" + negotiation_text + "\n```\n\n"
         report_text += "## 🚨 Risky Clauses & Safe Revisions\n"
         for rf in report.red_flags:
-            report_text += f"\n### {rf.clause_reference} [{rf.risk_level} Risk]\n- Issue: {rf.problem_explanation}\n- Suggested Revision: {rf.suggested_revision}\n"
+            report_text += f"\n### {rf.clause_reference} [{rf.risk_level} Risk]\n- Issue: {rf.problem_explanation}\n"
+            if getattr(rf, "legal_basis", None):
+                report_text += f"- Legal Basis: {rf.legal_basis}\n"
+            report_text += f"- Suggested Revision: {rf.suggested_revision}\n"
         report_text += "\n## 🔍 Missing Protections\n" + "\n".join([f"- {m}" for m in report.missing_protections]) + "\n"
         
         if hasattr(report, "relevant_sources") and report.relevant_sources:

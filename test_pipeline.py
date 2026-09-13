@@ -85,6 +85,13 @@ Monthly Rent: PKR 150,000
     assert len(report1.relevant_sources) >= 3, "Expected at least 3 dynamic statutory sources for lease"
     assert report1.disclaimer and "Disclaimer" in report1.disclaimer, "Disclaimer missing or empty"
 
+    # Verify that every finding has its specific statutory citation (not generic FBR/SECP)
+    for rf in report1.red_flags:
+        assert rf.legal_basis and len(rf.legal_basis) > 5, f"Finding {rf.clause_reference} missing legal basis citation"
+        print(f"    - {rf.clause_reference}: Legal Basis -> {rf.legal_basis}")
+    assert any("Income Tax Ordinance" in rf.legal_basis for rf in report1.red_flags), "Tax finding must cite Income Tax Ordinance"
+    assert any("Rented Premises" in rf.legal_basis for rf in report1.red_flags), "Lease finding must cite Rented Premises legislation"
+
     # Test negotiation script generation and deduplication
     script1 = generate_negotiation_script(report1)
     assert "completely ready to sign" not in script1.lower(), "'completely ready to sign' found in negotiation script"
@@ -107,9 +114,13 @@ Monthly Rent: PKR 150,000
     assert len(report2.relevant_sources) >= 3, "Expected at least 3 dynamic statutory sources for vendor agreement"
     assert report2.disclaimer and "Disclaimer" in report2.disclaimer, "Disclaimer missing or empty"
 
+    for rf in report2.red_flags:
+        assert rf.legal_basis and len(rf.legal_basis) > 5, f"Finding {rf.clause_reference} missing legal basis citation"
+    assert any("Copyright Ordinance" in rf.legal_basis for rf in report2.red_flags), "IP finding must cite Copyright Ordinance"
+
     script2 = generate_negotiation_script(report2)
     assert "completely ready to sign" not in script2.lower(), "'completely ready to sign' found in vendor script"
-    print("  ✅ Sample 2 Vendor Agreement audit verified with Dynamic Sources & Disclaimer!")
+    print("  ✅ Sample 2 Vendor Agreement audit verified with Dynamic Sources, Clause-Level Citations & Disclaimer!")
 
     # 4. Test Compliance Engine & Q&A
     print("\n[4/5] Testing Compliance Engine & Legal Q&A Advisor...")
