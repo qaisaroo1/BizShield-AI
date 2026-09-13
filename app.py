@@ -655,7 +655,7 @@ with tab_scanner:
             f"🚨 Traps & Red Flags ({len(report.red_flags)})",
             f"🔍 Missing Protections ({len(report.missing_protections)})",
             f"✅ Fair & Safe Clauses ({len(report.positive_clauses)})",
-            f"📚 Legal Basis & Sources ({sources_count})",
+            f"📚 Legal Sources ({sources_count})",
             f"🔒 Privacy Shield Proof"
         ])
 
@@ -668,30 +668,33 @@ with tab_scanner:
                 
                 legal_basis_html = ""
                 if getattr(flag, "legal_basis", None):
-                    legal_basis_html = f"""
-                    <div style='background:rgba(59, 130, 246, 0.08); border:1px solid rgba(59, 130, 246, 0.25); border-radius:6px; padding:8px 12px; margin-bottom:10px;'>
-                        <strong style='color:#2563EB; font-size:0.88rem;'>⚖️ Relevant Statutory Legal Basis:</strong><br>
-                        <span style='color:var(--text-color); font-size:0.86rem;'>{flag.legal_basis}</span>
-                    </div>
-                    """
+                    legal_basis_html = (
+                        f"<div style='background:rgba(59, 130, 246, 0.08); border:1px solid rgba(59, 130, 246, 0.25); "
+                        f"border-radius:6px; padding:8px 12px; margin-bottom:10px;'>"
+                        f"<strong style='color:#2563EB; font-size:0.88rem;'>⚖️ Applicable Pakistani Law:</strong><br>"
+                        f"<span style='color:var(--text-color); font-size:0.86rem;'>{flag.legal_basis}</span>"
+                        f"</div>"
+                    )
+
+                card_html = (
+                    f"<div class='{card_class}'>"
+                    f"<div style='display:flex; justify-content:space-between; align-items:center;'>"
+                    f"<h4 style='margin:0; color:var(--text-color);'>{flag.clause_reference}</h4>"
+                    f"<span style='background:{badge_bg}; color:{badge_color}; padding:3px 10px; border-radius:12px; font-weight:700; font-size:0.8rem; border:1px solid {badge_color}40;'>"
+                    f"{flag.risk_level} Risk &nbsp;|&nbsp; {flag.category}"
+                    f"</span>"
+                    f"</div>"
+                    f"<p style='color:var(--text-color); opacity:0.9; margin:10px 0 8px 0;'><strong>⚠️ Problem / Trap (In Everyday Words):</strong> {flag.problem_explanation}</p>"
+                    f"{legal_basis_html}"
+                    f"<div class='safe-clause-box'>"
+                    f"<strong style='color:#10B981;'>💡 Safe Replacement Clause to Propose:</strong><br>"
+                    f"<span style='color:var(--text-color); font-family:monospace; font-size:0.88rem;'>{flag.suggested_revision}</span>"
+                    f"</div>"
+                    f"</div>"
+                )
 
                 with st.container():
-                    st.markdown(f"""
-                    <div class='{card_class}'>
-                        <div style='display:flex; justify-content:space-between; align-items:center;'>
-                            <h4 style='margin:0; color:var(--text-color);'>{flag.clause_reference}</h4>
-                            <span style='background:{badge_bg}; color:{badge_color}; padding:3px 10px; border-radius:12px; font-weight:700; font-size:0.8rem; border:1px solid {badge_color}40;'>
-                                {flag.risk_level} Risk &nbsp;|&nbsp; {flag.category}
-                            </span>
-                        </div>
-                        <p style='color:var(--text-color); opacity:0.9; margin:10px 0 6px 0;'><strong>⚠️ Problem / Trap (In Everyday Words):</strong> {flag.problem_explanation}</p>
-                        {legal_basis_html}
-                        <div class='safe-clause-box'>
-                            <strong style='color:#10B981;'>💡 Safe Replacement Clause to Propose:</strong><br>
-                            <span style='color:var(--text-color); font-family:monospace; font-size:0.88rem;'>{flag.suggested_revision}</span>
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    st.markdown(card_html, unsafe_allow_html=True)
 
         with tab_omitted:
             st.markdown("##### Critical Safeguards Omitted from this Agreement:")
@@ -708,10 +711,10 @@ with tab_scanner:
             st.markdown("</div>", unsafe_allow_html=True)
 
         with tab_sources:
-            st.markdown("##### 📚 Relevant Legal Basis & Statutory Authorities:")
+            st.markdown("##### 📚 Applicable Pakistani Laws & Legal Sources:")
             st.markdown("""
             <div style='background:var(--secondary-background-color); border-left:4px solid #3B82F6; border-radius:8px; padding:14px; margin-bottom:16px;'>
-                <strong style='color:#1E293B;'>Pakistani Regulatory Grounding for Identified Contract Clauses:</strong><br>
+                <strong style='color:#1E293B;'>Governing Pakistani Laws for Identified Contract Clauses:</strong><br>
                 <span style='font-size:0.88rem; color:var(--text-color); opacity:0.9;'>
                     BizShield AI dynamically references prevailing Pakistani statutory frameworks governing the specific clauses and obligations identified in this agreement:
                 </span>
@@ -771,12 +774,12 @@ with tab_scanner:
         for rf in report.red_flags:
             report_text += f"\n### {rf.clause_reference} [{rf.risk_level} Risk]\n- Issue: {rf.problem_explanation}\n"
             if getattr(rf, "legal_basis", None):
-                report_text += f"- Legal Basis: {rf.legal_basis}\n"
+                report_text += f"- Applicable Law: {rf.legal_basis}\n"
             report_text += f"- Suggested Revision: {rf.suggested_revision}\n"
         report_text += "\n## 🔍 Missing Protections\n" + "\n".join([f"- {m}" for m in report.missing_protections]) + "\n"
         
         if hasattr(report, "relevant_sources") and report.relevant_sources:
-            report_text += "\n## 📚 Relevant Legal Basis & Statutory References\n" + "\n".join([f"- {s}" for s in report.relevant_sources]) + "\n"
+            report_text += "\n## 📚 Applicable Pakistani Laws & Legal Sources\n" + "\n".join([f"- {s}" for s in report.relevant_sources]) + "\n"
         
         report_text += f"\n## ⚖️ Legal & Informational Disclaimer\n{disclaimer_text}\n"
         
