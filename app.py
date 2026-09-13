@@ -620,7 +620,7 @@ with tab_scanner:
             <div class='step-card'>
                 <div style='font-size:1.05rem; font-weight:700; color:#1E293B; margin-bottom:6px;'>2️⃣ Add Missing Clauses</div>
                 <div style='color:#475569; font-size:0.88rem;'>
-                    Insist on standard commercial protections: explicit mutual notice period and FBR withholding tax clarity under Section 153/155.
+                    Insist on standard commercial protections: explicit mutual notice period and tax treatment clarity where the payer qualifies as a prescribed withholding agent under prevailing law.
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -649,11 +649,13 @@ with tab_scanner:
                 st.markdown(f"• {bullet}")
             st.markdown("</div>", unsafe_allow_html=True)
 
-        # 6. TABBED DETAILED FINDINGS
-        tab_traps, tab_omitted, tab_safe, tab_proof = st.tabs([
+        # 6. TABBED DETAILED FINDINGS & STATUTORY AUTHORITIES
+        sources_count = len(report.relevant_sources) if hasattr(report, "relevant_sources") and report.relevant_sources else 0
+        tab_traps, tab_omitted, tab_safe, tab_sources, tab_proof = st.tabs([
             f"🚨 Traps & Red Flags ({len(report.red_flags)})",
             f"🔍 Missing Protections ({len(report.missing_protections)})",
             f"✅ Fair & Safe Clauses ({len(report.positive_clauses)})",
+            f"📚 Legal Basis & Sources ({sources_count})",
             f"🔒 Privacy Shield Proof"
         ])
 
@@ -695,6 +697,22 @@ with tab_scanner:
                 st.markdown(f"✅ **Fair Term:** {p}")
             st.markdown("</div>", unsafe_allow_html=True)
 
+        with tab_sources:
+            st.markdown("##### 📚 Relevant Legal Basis & Statutory Authorities:")
+            st.markdown("""
+            <div style='background:var(--secondary-background-color); border-left:4px solid #3B82F6; border-radius:8px; padding:14px; margin-bottom:16px;'>
+                <strong style='color:#1E293B;'>Pakistani Regulatory Grounding for Identified Contract Clauses:</strong><br>
+                <span style='font-size:0.88rem; color:var(--text-color); opacity:0.9;'>
+                    BizShield AI dynamically references prevailing Pakistani statutory frameworks governing the specific clauses and obligations identified in this agreement:
+                </span>
+            </div>
+            """, unsafe_allow_html=True)
+            if hasattr(report, "relevant_sources") and report.relevant_sources:
+                for idx, src in enumerate(report.relevant_sources, 1):
+                    st.markdown(f"**{idx}.** {src}")
+            else:
+                st.info("General Pakistani contract law applies under the Contract Act 1872.")
+
         with tab_proof:
             st.markdown("##### 🔒 Data Privacy Verification for this Document:")
             if st.session_state.audit_log:
@@ -711,7 +729,30 @@ with tab_scanner:
             else:
                 st.info("Privacy Shield ran in active mode. Zero personal identifiers or banking credentials were sent to Google Gemini AI.")
 
-        # 7. DOWNLOAD FULL REPORT
+        # 7. INFORMATIONAL & LEGAL DISCLAIMER
+        disclaimer_text = getattr(report, "disclaimer", None) or (
+            "⚠️ Legal & Informational Decision-Support Disclaimer: BizShield AI is an automated AI-powered contract analysis "
+            "and business risk decision-support tool. It provides plain-language risk flagging, commercial negotiation benchmarks, "
+            "and regulatory awareness for small businesses and freelancers. BizShield AI does not provide formal legal advice, "
+            "legal opinions, or legal representation, nor does it create an advocate-client relationship. Commercial contracts and "
+            "tax liabilities depend on specific factual circumstances, provincial jurisdictions, and prevailing statutory amendments. "
+            "For high-value or disputed transactions, users should consult a qualified Pakistani legal practitioner or tax consultant."
+        )
+        st.markdown(f"""
+        <div style='background:rgba(100, 116, 139, 0.08); border:1px solid rgba(100, 116, 139, 0.25); border-radius:8px; padding:14px; margin-top:20px; margin-bottom:16px;'>
+            <div style='display:flex; align-items:flex-start; gap:10px;'>
+                <span style='font-size:1.3rem;'>⚖️</span>
+                <div>
+                    <strong style='color:var(--text-color); font-size:0.92rem;'>Legal & Informational Decision-Support Disclaimer:</strong><br>
+                    <span style='color:var(--text-color); opacity:0.85; font-size:0.82rem; line-height:1.45;'>
+                        {disclaimer_text}
+                    </span>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # 8. DOWNLOAD FULL REPORT
         report_text = f"# BizShield AI - Commercial Contract Risk Audit\n\nContract: {st.session_state.current_contract_title}\nOverall Risk: {report.overall_risk_score}/100 ({report.overall_risk_level})\n\n"
         report_text += f"## 🚦 Executive Verdict\n{report.overall_risk_level} ({report.overall_risk_score}/100)\n\n"
         report_text += "## 💡 Plain English Summary\n" + "\n".join([f"- {b}" for b in report.plain_english_summary]) + "\n\n"
@@ -720,6 +761,11 @@ with tab_scanner:
         for rf in report.red_flags:
             report_text += f"\n### {rf.clause_reference} [{rf.risk_level} Risk]\n- Issue: {rf.problem_explanation}\n- Suggested Revision: {rf.suggested_revision}\n"
         report_text += "\n## 🔍 Missing Protections\n" + "\n".join([f"- {m}" for m in report.missing_protections]) + "\n"
+        
+        if hasattr(report, "relevant_sources") and report.relevant_sources:
+            report_text += "\n## 📚 Relevant Legal Basis & Statutory References\n" + "\n".join([f"- {s}" for s in report.relevant_sources]) + "\n"
+        
+        report_text += f"\n## ⚖️ Legal & Informational Disclaimer\n{disclaimer_text}\n"
         
         st.download_button(
             label="📥 Download Action Plan & Audit Report (.md)",

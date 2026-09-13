@@ -12,7 +12,7 @@ if sys.platform == "win32":
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.privacy_shield import PrivacyShield
-from src.contract_scanner import ContractScanner
+from src.contract_scanner import ContractScanner, generate_negotiation_script
 from src.compliance import SmartComplianceEngine
 from src.qa_advisor import LegalAdvisorAgent
 from src.samples import (
@@ -79,11 +79,22 @@ Monthly Rent: PKR 150,000
     print(f"  Overall Risk Rating: {report1.overall_risk_score}/100 ({report1.overall_risk_level})")
     print(f"  Red Flags Detected: {len(report1.red_flags)}")
     print(f"  Missing Protections: {len(report1.missing_protections)}")
-    for f in report1.red_flags[:3]:
-        print(f"    - [{f.risk_level}] {f.clause_reference}: {f.problem_explanation[:75]}...")
+    print(f"  Dynamic Legal Sources: {len(report1.relevant_sources)} attached")
     assert report1.overall_risk_score > 60, "Expected high risk score for Sample 1"
     assert len(report1.red_flags) >= 5, "Expected at least 5 red flags for Sample 1"
-    print("  ✅ Sample 1 Lease audit verified against Expected Findings!")
+    assert len(report1.relevant_sources) >= 3, "Expected at least 3 dynamic statutory sources for lease"
+    assert report1.disclaimer and "Disclaimer" in report1.disclaimer, "Disclaimer missing or empty"
+
+    # Test negotiation script generation and deduplication
+    script1 = generate_negotiation_script(report1)
+    assert "completely ready to sign" not in script1.lower(), "'completely ready to sign' found in negotiation script"
+    tax_numbered_points = [
+        p for p in script1.split("\n\n")
+        if any(p.strip().startswith(f"{i}.") for i in range(1, 10)) and ("tax" in p.lower() or "withholding" in p.lower())
+    ]
+    assert len(tax_numbered_points) <= 1, f"Expected at most 1 tax point in script, got {len(tax_numbered_points)}: {tax_numbered_points}"
+    print(f"  Negotiation Script Points: {len(tax_numbered_points)} tax point (no duplicates!), collaborative closing verified.")
+    print("  ✅ Sample 1 Lease audit verified against Expected Findings, Dynamic Sources & Disclaimer!")
 
     # 3. Test Contract Scanner on Sample 2 (Vendor Agreement)
     print("\n[3/5] Testing Contract Scanner on Sample 2 (Vendor Agreement)...")
@@ -91,8 +102,14 @@ Monthly Rent: PKR 150,000
     print(f"  Contract Type: {report2.contract_type}")
     print(f"  Overall Risk Rating: {report2.overall_risk_score}/100 ({report2.overall_risk_level})")
     print(f"  Red Flags Detected: {len(report2.red_flags)}")
+    print(f"  Dynamic Legal Sources: {len(report2.relevant_sources)} attached")
     assert len(report2.red_flags) >= 4, "Expected at least 4 red flags for Sample 2"
-    print("  ✅ Sample 2 Vendor Agreement audit verified!")
+    assert len(report2.relevant_sources) >= 3, "Expected at least 3 dynamic statutory sources for vendor agreement"
+    assert report2.disclaimer and "Disclaimer" in report2.disclaimer, "Disclaimer missing or empty"
+
+    script2 = generate_negotiation_script(report2)
+    assert "completely ready to sign" not in script2.lower(), "'completely ready to sign' found in vendor script"
+    print("  ✅ Sample 2 Vendor Agreement audit verified with Dynamic Sources & Disclaimer!")
 
     # 4. Test Compliance Engine & Q&A
     print("\n[4/5] Testing Compliance Engine & Legal Q&A Advisor...")

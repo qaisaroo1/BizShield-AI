@@ -72,17 +72,17 @@ Date: 1 October 2026
 SAMPLE_1_EXPECTED_FINDINGS = [
     {
         "clause": "Clause 5: Termination",
-        "issue": "Notice period is vague ('reasonable notice'). In Pakistani commercial practice, an exact notice timeline (e.g. 60 or 90 days in writing as a negotiated commercial benchmark) should be defined, subject to provincial tenancy laws.",
+        "issue": "Notice period is unquantified ('reasonable notice'). In commercial practice, parties typically define an agreed written timeline (such as 60 or 90 days as a negotiated benchmark) rather than relying on ambiguous terms, subject to applicable provincial tenancy laws.",
         "risk": "High",
         "category": "Vague Termination Rights (Commercial Risk)",
-        "action": "Specify an exact written notice period (e.g. 60 days as a standard commercial practice) and define explicit grounds for termination."
+        "action": "Specify an agreed written notice period (e.g. 60 or 90 days as a negotiated commercial benchmark) and define explicit grounds for termination."
     },
     {
         "clause": "Clause 6: Maintenance",
-        "issue": "Maintenance responsibility is overly broad. Standard commercial practice distinguishes structural repairs (roof, exterior walls - landlord) from internal operational repairs (tenant).",
+        "issue": "Maintenance responsibility is overly broad. In balanced commercial leases, structural repairs (roof, exterior walls, main plumbing) are typically allocated to the landlord, while routine internal upkeep is handled by the tenant.",
         "risk": "Medium",
         "category": "Broad / Unclear Obligations (Ambiguous Clause)",
-        "action": "Explicitly state landlord is responsible for structural repairs, plumbing mainlines, and major electrical faults."
+        "action": "Clarify in the clause that landlord maintains structural integrity and external premises, while tenant handles internal operational upkeep."
     },
     {
         "clause": "Clause 12: Late Payment",
@@ -114,10 +114,10 @@ SAMPLE_1_EXPECTED_FINDINGS = [
     },
     {
         "clause": "Tax Considerations (Missing Clause)",
-        "issue": "No mention of applicable withholding tax obligations or provincial sales tax on rent.",
+        "issue": "The agreement does not specify whether rent payments are inclusive or exclusive of applicable withholding tax deductions where the tenant qualifies as a prescribed withholding agent under Section 155 of the Income Tax Ordinance 2001.",
         "risk": "High",
         "category": "Tax / Withholding Responsibility Missing (Potential Risk)",
-        "action": "Add explicit clause clarifying whether PKR 150,000 rent is gross or net of applicable withholding obligations depending on payer, transaction, and current tax law."
+        "action": "Add an explicit clause clarifying whether the agreed rent is gross or net of statutory withholding deductions where the payer is a prescribed withholding agent under applicable law."
     }
 ]
 
