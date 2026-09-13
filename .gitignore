@@ -2,5 +2,5 @@
 __pycache__/
 *.pyc
 venv/
-.streamlit/
+.streamlit/secrets.toml
 data/last_ai_transmission.txt

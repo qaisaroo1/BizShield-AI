@@ -3,6 +3,7 @@ import re
 import sys
 from pathlib import Path
 import streamlit as st
+import streamlit.components.v1 as components
 
 # Ensure local src imports work
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -200,8 +201,117 @@ st.markdown("""
         box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         color: var(--text-color);
     }
+
+    /* 1. Hide Streamlit default footer ("Made with Streamlit") */
+    footer, [data-testid="stFooter"] {
+        visibility: hidden !important;
+        display: none !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* 2. Hide Streamlit Community Cloud Viewer Badge, Creator Attribution ("Created by qaisaroo1"), & Profile Watermark */
+    [class*="viewerBadge"],
+    [class*="ProfileBadge"],
+    [class*="viewer-badge"],
+    [class*="profile-badge"],
+    [class*="styles_viewerBadge"],
+    .viewerBadge_container__1QSob,
+    .viewerBadge_link__1QSob,
+    [data-testid="stStatusWidget"],
+    [data-testid="manage-app-button"],
+    #manage-app-button,
+    .stAppDeployButton,
+    .stDeployButton,
+    a[href*="qaisaroo1"],
+    div:has(a[href*="qaisaroo1"]),
+    div:has(> a[href*="qaisaroo1"]),
+    div:has(a[href*="share.streamlit.io"]),
+    div:has(a[href*="streamlit.app"]) {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        height: 0 !important;
+        width: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
+    }
+
+    /* 3. Hide zero-height custom component iframes */
+    iframe[height="0"],
+    iframe[width="0"],
+    div:has(> iframe[height="0"]) {
+        display: none !important;
+        position: absolute !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
+
+# Component script to purge Streamlit Community Cloud creator badges / attribution
+components.html("""
+<script>
+(function() {
+    function purgeBadge() {
+        const rootDocs = [document];
+        try {
+            if (window.parent && window.parent.document && window.parent.document !== document) {
+                rootDocs.push(window.parent.document);
+            }
+        } catch (e) {}
+
+        rootDocs.forEach(function(doc) {
+            if (!doc || !doc.body) return;
+            
+            // 1. Selector-based removal
+            const selectors = [
+                'footer',
+                '[data-testid="stFooter"]',
+                '[class*="viewerBadge"]',
+                '[class*="ProfileBadge"]',
+                '.viewerBadge_container__1QSob',
+                '[data-testid="manage-app-button"]',
+                '#manage-app-button',
+                'a[href*="qaisaroo1"]'
+            ];
+            selectors.forEach(function(sel) {
+                doc.querySelectorAll(sel).forEach(function(el) {
+                    el.style.setProperty('display', 'none', 'important');
+                    el.style.setProperty('visibility', 'hidden', 'important');
+                    if (el.parentElement && el.parentElement.tagName === 'DIV' && el.parentElement.children.length <= 2) {
+                        el.parentElement.style.setProperty('display', 'none', 'important');
+                    }
+                });
+            });
+
+            // 2. Text-based scan to catch any "created by qaisaroo1" rendered dynamically
+            try {
+                const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null, false);
+                let node;
+                while (node = walker.nextNode()) {
+                    if (node.nodeValue && (node.nodeValue.toLowerCase().includes('qaisaroo1') || node.nodeValue.toLowerCase().includes('created by qaisar'))) {
+                        let target = node.parentElement;
+                        if (target) {
+                            target.style.setProperty('display', 'none', 'important');
+                            if (target.parentElement && target.parentElement.children.length <= 2) {
+                                target.parentElement.style.setProperty('display', 'none', 'important');
+                            }
+                        }
+                    }
+                }
+            } catch(err) {}
+        });
+    }
+
+    purgeBadge();
+    setInterval(purgeBadge, 300);
+})();
+</script>
+""", height=0, width=0)
 
 # ================= SIDEBAR =================
 with st.sidebar:
