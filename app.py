@@ -687,7 +687,7 @@ with tab_scanner:
                     f"<p style='color:var(--text-color); opacity:0.9; margin:10px 0 8px 0;'><strong>⚠️ Problem / Trap (In Everyday Words):</strong> {flag.problem_explanation}</p>"
                     f"{legal_basis_html}"
                     f"<div class='safe-clause-box'>"
-                    f"<strong style='color:#10B981;'>💡 Safe Replacement Clause to Propose:</strong><br>"
+                    f"<strong style='color:#10B981;'>💡 What to Write Instead:</strong><br>"
                     f"<span style='color:var(--text-color); font-family:monospace; font-size:0.88rem;'>{flag.suggested_revision}</span>"
                     f"</div>"
                     f"</div>"
