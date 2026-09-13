@@ -623,7 +623,7 @@ with tab_scanner:
             <div class='verdict-card-high'>
                 <div style='display:flex; align-items:center; justify-content:space-between;'>
                     <div>
-                        <div style='font-size:1.35rem; font-weight:800; color:#EF4444;'>🛑 EXECUTIVE VERDICT: DO NOT SIGN AS-IS</div>
+                        <div style='font-size:1.35rem; font-weight:800; color:#EF4444;'>🛑 EXECUTIVE VERDICT: HIGH RISK — CONSIDER REVISING THESE CLAUSES BEFORE SIGNING</div>
                         <div style='color:var(--text-color); opacity:0.9; font-size:0.95rem; margin-top:4px;'>
                             This contract contains <strong>critical commercial traps</strong> that heavily favor the other party. Counter-offer to revise these clauses before committing.
                         </div>
@@ -721,7 +721,7 @@ with tab_scanner:
             <div class='step-card'>
                 <div style='font-size:1.05rem; font-weight:700; color:#1E293B; margin-bottom:6px;'>1️⃣ Request Revisions</div>
                 <div style='color:#475569; font-size:0.88rem;'>
-                    Do not sign the existing draft. Request amendments to the <strong>high-risk clauses</strong> flagged below (especially termination and maintenance).
+                    Consider requesting revisions to the <strong>high-risk clauses</strong> before signing (especially termination and maintenance).
                 </div>
             </div>
             """, unsafe_allow_html=True)

@@ -80,7 +80,7 @@ SAMPLE_1_EXPECTED_FINDINGS = [
     },
     {
         "clause": "Clause 6: Maintenance",
-        "issue": "Maintenance responsibility is overly broad. In balanced commercial leases, structural repairs (roof, exterior walls, main plumbing) are typically allocated to the landlord, while routine internal upkeep is handled by the tenant.",
+        "issue": "The clause does not clearly distinguish structural repairs from routine tenant upkeep, which may create disputes. Clarify the respective responsibilities of both parties.",
         "risk": "Medium",
         "category": "Broad / Unclear Obligations (Ambiguous Clause)",
         "action": "Clarify in the clause that landlord maintains structural integrity and external premises, while tenant handles internal operational upkeep.",

@@ -306,7 +306,7 @@ Return strictly valid JSON adhering to this exact schema:
             plain_english_summary=[
                 "You are committing to pay PKR 150,000 per month for Office No. 12, Lahore for 2 years (PKR 3.6 Million total).",
                 "⚠️ Notice Period is unquantified: 'Reasonable notice' is not defined in days, leaving termination and move-out timelines open to commercial dispute.",
-                "⚠️ Maintenance duties are broad: The clause allocates general upkeep without clearly distinguishing landlord structural obligations from tenant internal operational repairs.",
+                "⚠️ Maintenance duties: The clause does not clearly distinguish structural repairs from routine tenant upkeep, which may create disputes. Clarify the respective responsibilities of both parties.",
                 "⚠️ Tax Treatment is unaddressed: The contract does not specify whether rent is gross or net of withholding deductions where the payer qualifies as a prescribed withholding agent under the Income Tax Ordinance 2001.",
                 "✅ Security deposit (PKR 300,000) is explicitly designated as refundable."
             ],

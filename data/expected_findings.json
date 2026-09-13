@@ -11,7 +11,7 @@
     {
       "finding_number": 2,
       "clause": "Clause 6: Maintenance",
-      "expected_issue": "Maintenance clause — responsibility broad/vague hai; structural vs operational duties ki clear distinction nahi.",
+      "expected_issue": "The clause does not clearly distinguish structural repairs from routine tenant upkeep, which may create disputes. Clarify the respective responsibilities of both parties.",
       "risk_level": "Medium",
       "suggested_action": "Clarify that landlord maintains structural integrity and external premises, while tenant handles internal minor operational upkeep.",
       "legal_basis": "Provincial Rented Premises Legislation (Punjab 2009 / Sindh 1979) – Statutory Maintenance Allocation"
